@@ -42,27 +42,108 @@ public class FacturaDAO {
 
     }
 
-    /*
+    public int delete(int idFactura) throws Exception {
+        String query = "DELETE FROM factura WHERE idFactura = ?";
+        PreparedStatement ps = null;
 
-    public boolean delete(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, idFactura);  // Asigna el valor de idFactura al parámetro de la consulta
+
+            int rowsAffected = ps.executeUpdate();  // Ejecuta la consulta
+            System.out.println("Factura eliminada exitosamente.");
+            return rowsAffected;  // Devuelve el número de filas afectadas (debería ser 1 si se eliminó con éxito)
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;  // Si ocurre una excepción, devuelve 0 (indica que no se eliminó ninguna fila)
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();  // Cierra el PreparedStatement
+                }
+                conn.commit();  // Asegura que la transacción se confirme
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
-    public Factura find(Integer pk) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'find'");
+        public Factura find(int idFactura) throws Exception {
+            String query = "SELECT idFactura, idCliente FROM factura WHERE idFactura = ?";
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+            Factura factura = null;
+
+            try {
+                ps = conn.prepareStatement(query);
+                ps.setInt(1, idFactura);  // Establece el idFactura como parámetro
+
+                rs = ps.executeQuery();  // Ejecuta la consulta
+
+                // Si se encuentra un registro, crea un objeto Factura con los datos obtenidos
+                if (rs.next()) {
+
+                  int idF =   rs.getInt("idFactura");
+                    int idC = rs.getInt("idCliente");
+                 factura = new Factura(idF,idC);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (rs != null) {
+                        rs.close();  // Cierra el ResultSet
+                    }
+                    if (ps != null) {
+                        ps.close();  // Cierra el PreparedStatement
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            return factura;  // Devuelve una copia de la factura encontrada (o null si no se encontró)
+
     }
 
 
-    public boolean update(Factura dao) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        public boolean update(Factura factura) throws Exception {
+            String query = "UPDATE factura SET idCliente = ? WHERE idFactura = ?";
+            PreparedStatement ps = null;
+
+            try {
+                ps = conn.prepareStatement(query);
+
+
+                ps.setInt(1, factura.getIdCliente());
+                ps.setInt(2, factura.getIdFactura());
+
+                int rowsAffected = ps.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    System.out.println("Factura actualizada exitosamente.");
+                    return true;
+                } else {
+                    System.out.println("No se encontró la factura a actualizar.");
+                    return false;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            } finally {
+                try {
+                    if (ps != null) {
+                        ps.close();
+                    }
+                    conn.commit();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+        }
     }
 
 
-     */
+
 
     public List<Factura> selectList() {
         String query = "SELECT * " +
