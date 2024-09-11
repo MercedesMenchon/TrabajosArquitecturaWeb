@@ -5,11 +5,12 @@ import dao.FacturaDAO;
 import dao.Factura_ProductoDAO;
 import dao.ProductoDAO;
 
+import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class MySQLDAOFactory {
+public class MySQLDAOFactory extends AbstractFactory{
 
     private static MySQLDAOFactory instance = null;
 
@@ -68,11 +69,11 @@ public class MySQLDAOFactory {
     }
 
     @Override
-    public ProductoDAO getDireccionDAO() {
+    public ProductoDAO getProductoDAO() {
         return new ProductoDAO(createConnection());
     }
     @Override
-    public Factura_ProductoDAO getDireccionDAO() {
+    public Factura_ProductoDAO getFactura_ProductoDAO() {
         return new Factura_ProductoDAO(createConnection());
     }
 

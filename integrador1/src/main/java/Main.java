@@ -1,3 +1,8 @@
+import dao.ClienteDAO;
+import dao.FacturaDAO;
+import dao.Factura_ProductoDAO;
+import dao.ProductoDAO;
+import factory.AbstractFactory;
 import utils.HelperMySQL;
 import entities.Cliente;
 import entities.Factura;
@@ -22,13 +27,14 @@ public class Main {
         System.out.println("////////////////////////////////////////////");
         System.out.println("////////////////////////////////////////////");
         System.out.println();
-        DireccionDAO direccion = chosenFactory.getDireccionDAO();
-        PersonaDAO persona = chosenFactory.getPersonaDAO();
+        ProductoDAO productoDAO = chosenFactory.getProductoDAO();
+        ClienteDAO clienteDAO = chosenFactory.getClienteDAO();
+        FacturaDAO facturaDAO = chosenFactory.getFacturaDAO();
+        Factura_ProductoDAO factura_productoDAO = chosenFactory.getFactura_ProductoDAO();
 
-
-        System.out.println("Busco una Persona por id: ");
+       /* System.out.println("Busco un Persona por id: ");
         Persona personaById = person
-
+*/
 
     }
 }

@@ -16,7 +16,7 @@ public class FacturaDAO {
         this.conn = conn;
     }
 
-    public int insert(Factura factura) throws Exception {
+    public void insert(Factura factura) throws Exception {
         String query = "INSERT INTO Factura (idFactura, idCliente) VALUES (?, ?)";
         PreparedStatement ps = null;
 
@@ -39,6 +39,7 @@ public class FacturaDAO {
                 e.printStackTrace();
             }
         }
+
     }
 
     /*
@@ -74,7 +75,7 @@ public class FacturaDAO {
         try {
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
-            // Crear una nueva instancia de Persona con los datos recuperados de la consulta
+            // Crear una nueva instancia de Factura con los datos recuperados de la consulta
             listado = new ArrayList<Factura>();
             while (rs.next()) { // Verificar si hay resultados
                 int idFactura = rs.getInt("idFactura");
