@@ -109,11 +109,7 @@ public class HelperMySQL {
                 " PRIMARY KEY (idFactura, idProducto)" +
                 ");";
 
-                /*"CREATE TABLE IF NOT EXISTS Factura_Producto(" +
-                " idFactura INT NOT NULL," +
-                " idProducto INT NOT NULL, " +
-                " cantidad INT";
-*/
+
         this.conn.prepareStatement(tableFactura_Producto).execute();
         this.conn.commit();
 
@@ -183,10 +179,10 @@ public class HelperMySQL {
                 }
             }
 
-            System.out.println("Facturas insertados");
+            System.out.println("Facturas insertadas");
 
             for (CSVRecord row : getData("facturas-productos.csv")) {
-                if (row.size() >= 3) { // Verificar que hay al menos 3 campos en el CSVRecord
+                if (row.size() >= 3) {
                     Integer idFactura = Integer.parseInt(row.get(0));
                     Integer idProducto = Integer.parseInt(row.get(1));
                     Integer cantidad = Integer.parseInt(row.get(2));
@@ -201,7 +197,7 @@ public class HelperMySQL {
                 }
             }
 
-            System.out.println("Facturas_Producto insertados");
+            System.out.println("Facturas_Producto insertadas");
 
         } catch (SQLException e) {
             e.printStackTrace();

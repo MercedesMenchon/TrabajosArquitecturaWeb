@@ -48,20 +48,19 @@ public class FacturaDAO {
 
         try {
             ps = conn.prepareStatement(query);
-            ps.setInt(1, idFactura);  // Asigna el valor de idFactura al parámetro de la consulta
-
-            int rowsAffected = ps.executeUpdate();  // Ejecuta la consulta
+            ps.setInt(1, idFactura);
+            int rowsAffected = ps.executeUpdate();
             System.out.println("Factura eliminada exitosamente.");
-            return rowsAffected;  // Devuelve el número de filas afectadas (debería ser 1 si se eliminó con éxito)
+            return rowsAffected;
         } catch (SQLException e) {
             e.printStackTrace();
-            return 0;  // Si ocurre una excepción, devuelve 0 (indica que no se eliminó ninguna fila)
+            return 0;
         } finally {
             try {
                 if (ps != null) {
                     ps.close();  // Cierra el PreparedStatement
                 }
-                conn.commit();  // Asegura que la transacción se confirme
+                conn.commit();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -77,11 +76,10 @@ public class FacturaDAO {
 
             try {
                 ps = conn.prepareStatement(query);
-                ps.setInt(1, idFactura);  // Establece el idFactura como parámetro
+                ps.setInt(1, idFactura);
 
-                rs = ps.executeQuery();  // Ejecuta la consulta
+                rs = ps.executeQuery();
 
-                // Si se encuentra un registro, crea un objeto Factura con los datos obtenidos
                 if (rs.next()) {
 
                   int idF =   rs.getInt("idFactura");
@@ -93,16 +91,16 @@ public class FacturaDAO {
             } finally {
                 try {
                     if (rs != null) {
-                        rs.close();  // Cierra el ResultSet
+                        rs.close();
                     }
                     if (ps != null) {
-                        ps.close();  // Cierra el PreparedStatement
+                        ps.close();
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
-            return factura;  // Devuelve una copia de la factura encontrada (o null si no se encontró)
+            return factura;
 
     }
 
@@ -156,7 +154,7 @@ public class FacturaDAO {
         try {
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
-            // Crear una nueva instancia de Factura con los datos recuperados de la consulta
+
             listado = new ArrayList<Factura>();
             while (rs.next()) { // Verificar si hay resultados
                 int idFactura = rs.getInt("idFactura");

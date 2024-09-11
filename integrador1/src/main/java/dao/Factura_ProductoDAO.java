@@ -1,7 +1,7 @@
 package dao;
 
 import entities.Factura_Producto;
-import entities.Producto;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -45,27 +45,105 @@ public class Factura_ProductoDAO {
 
     }
 
-    /*
 
-    public boolean delete(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    public void delete(Factura_Producto factura_producto) throws Exception {
+        String query = "DELETE FROM Factura_Producto WHERE idProducto = ? AND idFactura = ?";
+        PreparedStatement ps = null;
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, factura_producto.getIdProducto());
+            ps.setInt(2, factura_producto.getIdFactura());
+
+            int filasEliminadas = ps.executeUpdate();
+
+            if (filasEliminadas > 0) {
+                System.out.println("Factura_Producto eliminado exitosamente.");
+            } else {
+                System.out.println("No se encontró ningún registro con la factura_producto");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
-    public Producto find(Integer pk) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'find'");
+
+    public void update(Factura_Producto factura_producto) throws Exception {
+        String query = "UPDATE Factura_Producto SET cantidad = ? WHERE idProducto = ? AND idFactura = ?";
+        PreparedStatement ps = null;
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, factura_producto.getCantidad());
+            ps.setInt(2, factura_producto.getIdProducto());
+            ps.setInt(3, factura_producto.getIdFactura());
+
+            int filasActualizadas = ps.executeUpdate();
+
+            if (filasActualizadas > 0) {
+                System.out.println("Factura_Producto actualizado exitosamente.");
+            } else {
+                System.out.println("No se encontró ningún registro con los ID especificados.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
-    public boolean update(Producto dao) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    public Factura_Producto find(int idProducto, int idFactura) {
+        String query = "SELECT * FROM Factura_Producto WHERE idProducto = ? AND idFactura = ?";
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        Factura_Producto facturaProducto = null;
+
+        try {
+            pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, idProducto);
+            pstmt.setInt(2, idFactura);
+
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int cantidad = rs.getInt("cantidad");
+                facturaProducto = new Factura_Producto(idProducto, idFactura, cantidad);
+            } else {
+                System.out.println("No se encontró ningún registro con idProducto: " + idProducto + " y idFactura: " + idFactura);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return facturaProducto;
     }
 
 
-     */
 
     public List<Factura_Producto> selectList() {
         String query = "SELECT * " +
@@ -78,9 +156,9 @@ public class Factura_ProductoDAO {
         try {
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
-            // Crear una nueva instancia de Factura_Producto con los datos recuperados de la consulta
+
             listado = new ArrayList<Factura_Producto>();
-            while (rs.next()) { // Verificar si hay resultados
+            while (rs.next()) {
 
                 int idProducto = rs.getInt("idProducto");
                 int idFactura = rs.getInt("idFactura");
@@ -110,6 +188,6 @@ public class Factura_ProductoDAO {
 
 
 
-
-
 }
+
+

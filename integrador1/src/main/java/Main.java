@@ -24,17 +24,27 @@ public class Main {
 
         AbstractFactory chosenFactory = AbstractFactory.getDAOFactory(1);
         System.out.println();
-        System.out.println("////////////////////////////////////////////");
-        System.out.println("////////////////////////////////////////////");
+        System.out.println("---------------------------------------------");
         System.out.println();
         ProductoDAO productoDAO = chosenFactory.getProductoDAO();
         ClienteDAO clienteDAO = chosenFactory.getClienteDAO();
         FacturaDAO facturaDAO = chosenFactory.getFacturaDAO();
         Factura_ProductoDAO factura_productoDAO = chosenFactory.getFactura_ProductoDAO();
+/*
+3) Escriba un programa JDBC que retorne el producto que más recaudó. Se define
+“recaudación” como cantidad de productos vendidos multiplicado por su valor.
+.
+ */
+        System.out.println("Buscamos el producto que más recaudó ");
+        System.out.println( productoDAO.productoMasRecaudo());
 
-       /* System.out.println("Busco un Persona por id: ");
-        Persona personaById = person
-*/
+   /*
+   4) Escriba un programa JDBC que imprima una lista de clientes, ordenada por a cuál se le
+facturó más.
+    */
+        System.out.println("Obtenemos la lista de los clientes ordenada según el que más facturó:");
+        System.out.println( clienteDAO.findClientesByFacturado());
+
 
     }
 }

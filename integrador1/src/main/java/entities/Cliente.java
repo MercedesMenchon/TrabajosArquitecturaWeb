@@ -1,5 +1,10 @@
 package entities;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cliente {
         private int id;
         private String nombre;
@@ -39,10 +44,16 @@ public class Cliente {
         @Override
         public String toString() {
             return "Cliente{" +
+                    "idCliente=" + id + '\'' +
                     "nombre='" + nombre + '\'' +
                     ", email='" + email + '\'' +
-                    '}';
+                    '}'+"\n";
         }
-    }
+
+
+
+
+
+}
 
 

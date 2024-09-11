@@ -45,27 +45,109 @@ public class ProductoDAO {
 
     }
 
-    /*
 
-    public boolean delete(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+
+    public boolean delete(Integer id) throws Exception {
+        String query = "DELETE FROM producto WHERE idProducto = ?";
+        PreparedStatement ps = null;
+        boolean deleted = false;
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                deleted = true;
+                System.out.println("Producto eliminado exitosamente.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return deleted;
     }
 
 
-    public Producto find(Integer pk) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'find'");
+    public Producto find(int id) throws Exception {
+        String query = "SELECT idProducto, nombre, valor FROM Producto WHERE idProducto = ?";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Producto producto = null;
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, id);  // Similar al uso de parámetros en la sentencia UPDATE
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                int idP = rs.getInt("idProducto");
+                String nombre = rs.getString("nombre");
+                Float valor = rs.getFloat("valor");
+                producto = new Producto(idP,nombre,valor);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return producto;
     }
 
 
-    public boolean update(Producto dao) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    public boolean update(Producto producto) throws Exception {
+        String query = "UPDATE Producto SET nombre = ?, valor = ? WHERE idProducto = ?";
+        PreparedStatement ps = null;
+        boolean updated = false;
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, producto.getNombre());
+            ps.setFloat(2, producto.getValor());
+            ps.setInt(3, producto.getIdProducto());
+
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                updated = true;
+                System.out.println("Producto actualizado exitosamente.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return updated;
     }
 
 
-     */
+
 
     public List<Producto> selectList() {
         String query = "SELECT * " +
@@ -108,9 +190,51 @@ public class ProductoDAO {
         return listado;
     }
 
+    public Producto productoMasRecaudo() {
+        String query = "SELECT p.idProducto, p.nombre, p.valor, SUM(fp.cantidad * p.valor) AS total_recaudado " +
+                "FROM Producto p " +
+                "JOIN Factura_Producto fp ON p.idProducto = fp.idProducto " +
+                "GROUP BY p.idProducto " +
+                "ORDER BY total_recaudado DESC " +
+                "LIMIT 1;";
+
+        Producto producto = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                int idProducto = rs.getInt("idProducto");
+                String nombre = rs.getString("nombre");
+                float valor = rs.getFloat("valor");
+
+                producto = new Producto(idProducto, nombre, valor);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return producto;
+    }
+    }
 
 
 
 
 
-}
+
