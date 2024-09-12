@@ -46,35 +46,41 @@ public class ProductoDAO {
     }
 
 
-
-    public boolean delete(Integer id) throws Exception {
+    public boolean deleteProducto(Integer idProducto) {
         String query = "DELETE FROM producto WHERE idProducto = ?";
-        PreparedStatement ps = null;
-        boolean deleted = false;
+        PreparedStatement pstmt = null;
+        boolean eliminado = false;
 
         try {
-            ps = conn.prepareStatement(query);
-            ps.setInt(1, id);
+            pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, idProducto);
 
-            int rowsAffected = ps.executeUpdate();
-            if (rowsAffected > 0) {
-                deleted = true;
-                System.out.println("Producto eliminado exitosamente.");
+            int filasEliminadas = pstmt.executeUpdate();
+
+            if (filasEliminadas > 0) {
+                System.out.println("Producto con id: " + idProducto + " eliminado con éxito.");
+                eliminado = true;
+            } else {
+                System.out.println("No se encontró ningún producto con id: " + idProducto + ".");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            if (e.getSQLState().startsWith("23")) { // SQLState 23XXX codes indicate integrity constraint violation
+                System.out.println("No se puede eliminar un producto con una factura_producto asociada.");
+            } else {
+                e.printStackTrace(); // Opcional: manejar otros errores SQL
+            }
         } finally {
             try {
-                if (ps != null) {
-                    ps.close();
+                if (pstmt != null) {
+                    pstmt.close();
                 }
-                conn.commit();
+                conn.commit(); // Asegúrate de que el commit sea necesario en tu caso
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
 
-        return deleted;
+        return eliminado;
     }
 
 
@@ -113,40 +119,61 @@ public class ProductoDAO {
         return producto;
     }
 
-
-    public boolean update(Producto producto) throws Exception {
-        String query = "UPDATE Producto SET nombre = ?, valor = ? WHERE idProducto = ?";
-        PreparedStatement ps = null;
-        boolean updated = false;
+    public boolean updateProducto(Producto producto) throws Exception {
+        String checkProductQuery = "SELECT COUNT(*) FROM producto WHERE idProducto = ?";
+        String updateQuery = "UPDATE producto SET nombre = ?, valor = ? WHERE idProducto = ?";
+        PreparedStatement checkProductStmt = null;
+        PreparedStatement updateStmt = null;
+        ResultSet rs = null;
 
         try {
-            ps = conn.prepareStatement(query);
-            ps.setString(1, producto.getNombre());
-            ps.setFloat(2, producto.getValor());
-            ps.setInt(3, producto.getIdProducto());
+            // Verificar si idProducto existe
+            checkProductStmt = conn.prepareStatement(checkProductQuery);
+            checkProductStmt.setInt(1, producto.getIdProducto());
+            rs = checkProductStmt.executeQuery();
+            rs.next();
+            int productCount = rs.getInt(1);
 
-            int rowsAffected = ps.executeUpdate();
+            if (productCount == 0) {
+                System.out.println("No existe el idProducto dado para actualizar el producto.");
+                return false;
+            }
+
+            // Continuar con la actualización si el idProducto es válido
+            updateStmt = conn.prepareStatement(updateQuery);
+            updateStmt.setString(1, producto.getNombre());
+            updateStmt.setDouble(2, producto.getValor());
+            updateStmt.setInt(3, producto.getIdProducto());
+
+            int rowsAffected = updateStmt.executeUpdate();
+
             if (rowsAffected > 0) {
-                updated = true;
                 System.out.println("Producto actualizado exitosamente.");
+                return true;
+            } else {
+                System.out.println("No se encontró el producto a actualizar.");
+                return false;
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         } finally {
             try {
-                if (ps != null) {
-                    ps.close();
+                if (rs != null) {
+                    rs.close();
                 }
-                conn.commit();
+                if (checkProductStmt != null) {
+                    checkProductStmt.close();
+                }
+                if (updateStmt != null) {
+                    updateStmt.close();
+                }
+                conn.commit(); // Asegúrate de que el commit sea necesario en tu caso
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-
-        return updated;
     }
-
-
 
 
     public List<Producto> selectList() {
@@ -231,7 +258,7 @@ public class ProductoDAO {
 
         return producto;
     }
-    }
+}
 
 
 
