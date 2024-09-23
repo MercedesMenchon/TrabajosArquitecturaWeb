@@ -1,0 +1,28 @@
+package main.java.dao;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import java.io.Serializable;
+import java.util.Objects;
+
+@Embeddable
+public class EstudianteCarreraID implements Serializable {
+
+    @Column (name= "carrera_ID")
+    private long carreraID;
+    @Column(name="estudiante_ID")
+    private long estudianteID;
+
+    public EstudianteCarreraID(long carreraID, long estudianteID) {
+        this.carreraID = carreraID;
+        this.estudianteID = estudianteID;
+    }
+
+    public EstudianteCarreraID(){
+    }
+
+    public int hashCode(){
+        return Objects.hash(carreraID,estudianteID);
+    }
+
+}
