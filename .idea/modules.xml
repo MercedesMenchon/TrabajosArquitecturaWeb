@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/integrador2/Integrador2.iml" filepath="$PROJECT_DIR$/integrador2/Integrador2.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Trabajos Arquitectura Web.iml" filepath="$PROJECT_DIR$/.idea/Trabajos Arquitectura Web.iml" />
-      <module fileurl="file://$PROJECT_DIR$/integrador2/integrador2.iml" filepath="$PROJECT_DIR$/integrador2/integrador2.iml" />
     </modules>
   </component>
 </project>

@@ -21,13 +21,22 @@ public class EstudianteCarrera implements Serializable {
     private boolean graduado;
 
 
-    public EstudianteCarrera(boolean graduado, int antiguedad, String nombreCarrera, Carrera carrera, Estudiante estudiante, EstudianteCarreraID id) {
-        this.graduado = graduado;
-        this.antiguedad = antiguedad;
-        this.nombreCarrera = nombreCarrera;
-        this.carrera = carrera;
+//    public EstudianteCarrera(boolean graduado, int antiguedad, String nombreCarrera, Carrera carrera, Estudiante estudiante, EstudianteCarreraID id) {
+//        this.graduado = graduado; //FECHA DE INICIO
+//        this.antiguedad = antiguedad; //FECHA DE FIN
+//        this.nombreCarrera = nombreCarrera;
+//        this.carrera = carrera;
+//        this.estudiante = estudiante;
+//        this.id = id;
+//    }
+
+    public EstudianteCarrera(Estudiante estudiante, Carrera carrera) {
         this.estudiante = estudiante;
-        this.id = id;
+        this.carrera = carrera;
+        this.antiguedad = 13;
+        this.graduado = false;
+        this.nombreCarrera = "ds";
+        this.id = new EstudianteCarreraID(carrera.getIdCarrera(),estudiante.getLU());
     }
 
     public EstudianteCarrera() {

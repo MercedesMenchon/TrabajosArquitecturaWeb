@@ -10,7 +10,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="integrador2" />
+        <module name="Integrador2" />
         <module name="integrador1" />
       </profile>
     </annotationProcessing>

@@ -9,11 +9,11 @@ import java.util.Objects;
 public class EstudianteCarreraID implements Serializable {
 
     @Column (name= "carrera_ID")
-    private long carreraID;
+    private Long carreraID;
     @Column(name="estudiante_ID")
-    private long estudianteID;
+    private Long estudianteID;
 
-    public EstudianteCarreraID(long carreraID, long estudianteID) {
+    public EstudianteCarreraID(Long carreraID, Long estudianteID) {
         this.carreraID = carreraID;
         this.estudianteID = estudianteID;
     }

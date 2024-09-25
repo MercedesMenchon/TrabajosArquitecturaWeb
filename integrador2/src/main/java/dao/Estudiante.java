@@ -9,7 +9,7 @@ import java.util.List;
 public class Estudiante implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long LU;
+    private Long LU;
     @Column(nullable=false)
     private int DNI;
     @Column(nullable=false)
@@ -26,21 +26,21 @@ public class Estudiante implements Serializable {
     private List <EstudianteCarrera> carreras;
 
 
-
-    public Estudiante(String nombre, String apellido, int edad, String genero, int DNI, String ciudadResidencia, long LU) {
+    // La libreta Universitria no se generaria automaticamente tmb?
+    public Estudiante(String nombre, String apellido, int edad, String genero, int DNI, String ciudadResidencia/*, long LU*/) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.edad = edad;
         this.genero = genero;
         this.DNI = DNI;
         this.ciudadResidencia = ciudadResidencia;
-        this.LU = LU;
         this.carreras = new ArrayList<EstudianteCarrera>();
 
     }
 
     public Estudiante() {
         super();
+        this.carreras = new ArrayList<EstudianteCarrera>();
     }
 
 
@@ -52,7 +52,7 @@ public class Estudiante implements Serializable {
         this.apellido = apellido;
     }
 
-    public long getLU() {
+    public Long getLU() {
         return LU;
     }
 

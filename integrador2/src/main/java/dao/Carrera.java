@@ -8,27 +8,31 @@ import java.util.List;
 public class Carrera implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idCarrera;
+    private Long idCarrera;
     @Column(nullable = false)
     private String nombreCarrera;
     @OneToMany (mappedBy = "carrera", fetch = FetchType.LAZY)
     private List<EstudianteCarrera> estudiantes;
 
-    public Carrera(long idCarrera, String nombreCarrera) {
-        this.idCarrera = idCarrera;
+
+    // AL GENERARSE EL ID AUTOMATICO, HABRIA QUE PASARLE UN ID CUANDO LO INSTANCIAMOS?
+    public Carrera(/*Long idCarrera,*/ String nombreCarrera) {
+       // this.idCarrera = idCarrera;
+        super();
         this.nombreCarrera = nombreCarrera;
         this.estudiantes = new ArrayList<EstudianteCarrera>();
     }
 
     public Carrera() {
         super();
+        this.estudiantes = new ArrayList<EstudianteCarrera>();
     }
 
-    public long getIdCarrera() {
+    public Long getIdCarrera() {
         return idCarrera;
     }
 
-    public void setIdCarrera(long idCarrera) {
+    public void setIdCarrera(Long idCarrera) {
         this.idCarrera = idCarrera;
     }
 
