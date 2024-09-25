@@ -2,6 +2,7 @@ package main.java.dao;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
 public class EstudianteCarrera implements Serializable {
@@ -14,28 +15,16 @@ public class EstudianteCarrera implements Serializable {
     private Carrera carrera;
 
     @Column(nullable = false)
-    private String nombreCarrera;
-    @Column(nullable = false)
-    private int antiguedad;
-    @Column(nullable = false)
-    private boolean graduado;
-
-
-//    public EstudianteCarrera(boolean graduado, int antiguedad, String nombreCarrera, Carrera carrera, Estudiante estudiante, EstudianteCarreraID id) {
-//        this.graduado = graduado; //FECHA DE INICIO
-//        this.antiguedad = antiguedad; //FECHA DE FIN
-//        this.nombreCarrera = nombreCarrera;
-//        this.carrera = carrera;
-//        this.estudiante = estudiante;
-//        this.id = id;
-//    }
+    private LocalDate fechaInicio;
+    @Column(nullable = true)
+    private LocalDate fechaFin;
 
     public EstudianteCarrera(Estudiante estudiante, Carrera carrera) {
         this.estudiante = estudiante;
         this.carrera = carrera;
-        this.antiguedad = 13;
-        this.graduado = false;
-        this.nombreCarrera = "ds";
+        this.fechaInicio=LocalDate.now();
+        this.fechaFin=null;
+        //  if() HACER QUE CONTROLE QUE NO EXISTA ESE REGISTRO
         this.id = new EstudianteCarreraID(carrera.getIdCarrera(),estudiante.getLU());
     }
 
@@ -59,27 +48,27 @@ public class EstudianteCarrera implements Serializable {
         this.carrera = carrera;
     }
 
-    public String getNombreCarrera() {
-        return nombreCarrera;
+    public LocalDate getFechaInicio() {
+        return fechaInicio;
     }
 
-    public void setNombreCarrera(String nombreCarrera) {
-        this.nombreCarrera = nombreCarrera;
+    public void setFechaInicio(LocalDate fechaInicio) {
+        this.fechaInicio = fechaInicio;
     }
 
-    public int getAntiguedad() {
-        return antiguedad;
+    public EstudianteCarreraID getId() {
+        return id;
     }
 
-    public void setAntiguedad(int antiguedad) {
-        this.antiguedad = antiguedad;
+    public void setId(EstudianteCarreraID id) {
+        this.id = id;
     }
 
-    public boolean isGraduado() {
-        return graduado;
+    public LocalDate getFechaFin() {
+        return fechaFin;
     }
 
-    public void setGraduado(boolean graduado) {
-        this.graduado = graduado;
+    public void setFechaFin(LocalDate fechaFin) {
+        this.fechaFin = fechaFin;
     }
 }
