@@ -1,4 +1,4 @@
-package main.java.dao;
+package main.java.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

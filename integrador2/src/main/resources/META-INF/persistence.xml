@@ -6,10 +6,10 @@
     <persistence-unit name="example">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <class>main.java.dao.EstudianteCarreraID</class>
-        <class>main.java.dao.EstudianteCarrera</class>
-        <class>main.java.dao.Carrera</class>
-        <class>main.java.dao.Estudiante</class>
+        <class>main.java.entities.EstudianteCarreraID</class>
+        <class>main.java.entities.EstudianteCarrera</class>
+        <class>main.java.entities.Carrera</class>
+        <class>main.java.entities.Estudiante</class>
 
         <properties>
             <!-- Propiedades de configuracion de JDBC para Derby /-->

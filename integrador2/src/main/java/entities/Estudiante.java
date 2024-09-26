@@ -1,4 +1,4 @@
-package main.java.dao;
+package main.java.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
