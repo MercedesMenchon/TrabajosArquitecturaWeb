@@ -8,7 +8,6 @@ import java.util.List;
 @Entity
 public class Estudiante implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long LU;
     @Column(nullable=false)
     private int DNI;
@@ -27,7 +26,8 @@ public class Estudiante implements Serializable {
 
 
     // La libreta Universitria no se generaria automaticamente tmb?
-    public Estudiante(String nombre, String apellido, int edad, String genero, int DNI, String ciudadResidencia/*, long LU*/) {
+    public Estudiante(String nombre, String apellido, int edad, String genero, int DNI, String ciudadResidencia, Long LU) {
+       this.LU=LU;
         this.nombre = nombre;
         this.apellido = apellido;
         this.edad = edad;

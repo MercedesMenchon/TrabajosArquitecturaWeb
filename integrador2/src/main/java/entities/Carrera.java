@@ -15,10 +15,10 @@ public class Carrera implements Serializable {
     private List<EstudianteCarrera> estudiantes;
 
 
-    // AL GENERARSE EL ID AUTOMATICO, HABRIA QUE PASARLE UN ID CUANDO LO INSTANCIAMOS?
-    public Carrera(/*Long idCarrera,*/ String nombreCarrera) {
-       // this.idCarrera = idCarrera;
-        super();
+
+    public Carrera(Long idCarrera,String nombreCarrera) {
+       this.idCarrera = idCarrera;
+
         this.nombreCarrera = nombreCarrera;
         this.estudiantes = new ArrayList<EstudianteCarrera>();
     }
@@ -26,6 +26,16 @@ public class Carrera implements Serializable {
     public Carrera() {
         super();
         this.estudiantes = new ArrayList<EstudianteCarrera>();
+    }
+
+    public void addEstudiante(EstudianteCarrera estudiante) {
+       if (!this.estudiantes.contains(estudiante)){
+           this.estudiantes.add(estudiante);
+       }
+    }
+
+    public boolean contieneEstudiante(Estudiante estudianteCarrera) {
+        return this.estudiantes.contains(estudianteCarrera);
     }
 
     public Long getIdCarrera() {
