@@ -71,8 +71,10 @@ public abstract class RepositoryFactory {
 
     public void populateDB() throws Exception, SQLException {
         System.out.println("Populating DB...");
+        EstudianteRepository estudianteRepository = getEstudianteRepository();
+        CarreraRepository carreraRepository = getCarreraRepository();
         for (CSVRecord row : getData("estudiantes.csv")) {
-            if (row.size() >= 7) { // Verificar que hay al menos 3 campos en el CSVRecord
+            if (row.size() >= 7) {
                 Long LU = Long.parseLong(row.get(0));
                 int DNI = Integer.parseInt(row.get(1));
                 String nombre = row.get(2);
@@ -81,10 +83,12 @@ public abstract class RepositoryFactory {
                 String genero = row.get(5);
                 String ciudad = row.get(6);
                 // CONSULTAR LA CONDICION DE LOS LONG
-                if (!nombre.isEmpty() && !apellido.isEmpty() && DNI>0 && !ciudad.isEmpty() && LU!=null) {
+                if (!nombre.isEmpty() && !apellido.isEmpty() && DNI>0 && !ciudad.isEmpty()) {
                     try {
+
                         Estudiante estudiante = new Estudiante(nombre,apellido,edad,genero,DNI,ciudad,LU);
-                        EstudianteRepository.insertEstudiante(estudiante, conn);
+
+                        estudianteRepository.insertEstudiante(estudiante);
                     } catch (NumberFormatException e) {
                         System.err.println("Error de formato en datos de cliente: " + e.getMessage());
                     }
@@ -93,16 +97,21 @@ public abstract class RepositoryFactory {
         }
         System.out.println("Estudiantes insertados");
 
-        for (CSVRecord row : getData("carreras.csv")) {
-            if (row.size() >= 2) { // Verificar que hay al menos 3 campos en el CSVRecord
-                Long id = Long.parseLong(row.get(0));
-                String nombre = row.get(1);
+        for (CSVRecord fila : getData("carreras.csv")) {
+            System.out.println("Entre antes ---------------------------------------------");
+            System.out.println(fila.size());
+            if (fila.size() >= 2) {
+                System.out.println("Entre");
+                Long id = Long.parseLong(fila.get(0));
+                String nombre = fila.get(1);
 
-
+                System.out.println(id);
+                System.out.println(nombre);
                 if (!nombre.isEmpty() && id >= 0) {
                     try {
                         Carrera carrera = new Carrera(id,nombre);
-                        CarreraRepository.insertCarrera(carrera,conn);
+
+                        carreraRepository.insertCarrera(carrera);
                     } catch (NumberFormatException e) {
                         System.err.println("Error de formato en datos de carrera: " + e.getMessage());
                     }
@@ -113,8 +122,26 @@ public abstract class RepositoryFactory {
         System.out.println("Carreras insertados");
 
     }
+/*
+        // Insertar Carreras desde CSV
+        for (CSVRecord row : getData("carreras.csv")) {
+            if (row.size() >= 2) {
+                Long id = Long.parseLong(row.get(0));
+                String nombre = row.get(1);
 
+                if (!nombre.isEmpty() && id >= 0) {
+                    try {
+                        Carrera carrera = new Carrera(nombre); // Asegúrate de que Carrera tenga un constructor sin ID si el ID es generado automáticamente
+                        carreraRepository.insertCarrera(carrera);
+                    } catch (NumberFormatException e) {
+                        System.err.println("Error de formato en datos de carrera: " + e.getMessage());
+                    }
+                }
+            }
+        }
 
+        System.out.println("Carreras insertadas");
+    }*/
 
 
 

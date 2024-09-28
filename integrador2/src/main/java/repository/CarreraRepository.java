@@ -6,6 +6,6 @@ import main.java.entities.Estudiante;
 import java.sql.Connection;
 
 public interface CarreraRepository {
-    public static void insertCarrera(Carrera carrera, Connection conn){} ;
+    public abstract void insertCarrera(Carrera carrera) ;
 
 }

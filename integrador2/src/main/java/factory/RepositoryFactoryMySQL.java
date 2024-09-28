@@ -14,7 +14,6 @@ public class RepositoryFactoryMySQL extends RepositoryFactory {
 
 
     public RepositoryFactoryMySQL() {
-
         this.emf = Persistence.createEntityManagerFactory("example");
     }
 

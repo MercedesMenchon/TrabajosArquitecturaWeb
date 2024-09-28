@@ -18,10 +18,12 @@ public class Estudiante_RepositoryImplementacion implements EstudianteRepository
     }
 
 
-    public void insert(Estudiante estudiante) {
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
+    public void insertEstudiante(Estudiante estudiante) {
+        EntityManager em = null;
+        EntityTransaction tx = null;
         try {
+            em = emf.createEntityManager();
+            tx = em.getTransaction();
             tx.begin();
             if (em.find(Estudiante.class, estudiante.getLU()) == null) {
                 em.persist(estudiante);
@@ -30,16 +32,19 @@ public class Estudiante_RepositoryImplementacion implements EstudianteRepository
             }
             tx.commit();
         } catch (Exception e) {
-            tx.rollback();
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+
+            }
             e.printStackTrace();
+            throw new RuntimeException("Error al insertar Estudiante: " + e.getMessage());
         } finally {
-            em.close();
+            if (em != null) {
+                em.close();
+
+            }
         }
     }
-
-
-
-
 
 /*
     public void insertEstudiante(Estudiante estudiante, Connection conn) throws Exception {

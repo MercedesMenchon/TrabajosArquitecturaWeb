@@ -107,8 +107,8 @@ public class Estudiante implements Serializable {
     @Override
     public String toString() {
         return "Estudiante{" +
-                "LU=" + LU +
-                ", DNI=" + DNI +
+                "LU=" + LU  +
+               ", DNI=" + DNI +
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", edad=" + edad +

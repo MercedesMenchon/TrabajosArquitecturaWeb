@@ -7,7 +7,6 @@ import java.util.List;
 @Entity
 public class Carrera implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idCarrera;
     @Column(nullable = false)
     private String nombreCarrera;
@@ -18,7 +17,6 @@ public class Carrera implements Serializable {
 
     public Carrera(Long idCarrera,String nombreCarrera) {
        this.idCarrera = idCarrera;
-
         this.nombreCarrera = nombreCarrera;
         this.estudiantes = new ArrayList<EstudianteCarrera>();
     }
@@ -52,5 +50,14 @@ public class Carrera implements Serializable {
 
     public void setNombreCarrera(String nombreCarrera) {
         this.nombreCarrera = nombreCarrera;
+    }
+
+    @Override
+    public String toString() {
+        return "Carrera{" +
+                "idCarrera=" + idCarrera +
+                ", nombreCarrera='" + nombreCarrera + '\'' +
+                ", estudiantes=" + estudiantes +
+                '}';
     }
 }
