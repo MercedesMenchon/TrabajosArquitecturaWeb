@@ -24,10 +24,15 @@ public class EstudianteCarrera implements Serializable {
         this.carrera = carrera;
         this.fechaInicio=inicio;
         this.fechaFin=null;
-        //  if() HACER QUE CONTROLE QUE NO EXISTA ESE REGISTRO
         this.id = new EstudianteCarreraID(carrera.getIdCarrera(),estudiante.getLU());
     }
-
+    public EstudianteCarrera(Estudiante estudiante, Carrera carrera) {
+        this.estudiante = estudiante;
+        this.carrera = carrera;
+        this.fechaInicio=LocalDate.now();
+        this.fechaFin=null;
+        this.id = new EstudianteCarreraID(carrera.getIdCarrera(),estudiante.getLU());
+    }
     public EstudianteCarrera() {
         super();
     }

@@ -6,6 +6,6 @@ import main.java.entities.Estudiante;
 import java.time.LocalDate;
 
 public interface EstudianteCarrera_Repository {
-    public abstract void anotarEstudiante(Estudiante estudiante, Carrera carrera, LocalDate fechaInicio, LocalDate fechaFin);
+    public abstract void anotarEstudianteCarrera(Estudiante estudiante, Carrera carrera, LocalDate fechaInicio, LocalDate fechaFin);
 
 }

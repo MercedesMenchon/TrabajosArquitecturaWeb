@@ -10,13 +10,13 @@ public class Estudiante implements Serializable {
     @Id
     private Long LU;
     @Column(nullable=false)
-    private int DNI;
+    private Long DNI;
     @Column(nullable=false)
     private String nombre;
     @Column(nullable=false)
     private String apellido;
     @Column(nullable=false)
-    private int edad;
+    private Long edad;
     @Column(nullable=true)
     private String genero;
     @Column(nullable=false)
@@ -26,7 +26,7 @@ public class Estudiante implements Serializable {
 
 
     // La libreta Universitria no se generaria automaticamente tmb?
-    public Estudiante(String nombre, String apellido, int edad, String genero, int DNI, String ciudadResidencia, Long LU) {
+    public Estudiante(String nombre, String apellido, Long edad, String genero, Long DNI, String ciudadResidencia, Long LU) {
        this.LU=LU;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -68,11 +68,11 @@ public class Estudiante implements Serializable {
         this.ciudadResidencia = ciudadResidencia;
     }
 
-    public int getDNI() {
+    public Long getDNI() {
         return DNI;
     }
 
-    public void setDNI(int DNI) {
+    public void setDNI(Long DNI) {
         this.DNI = DNI;
     }
 
@@ -84,11 +84,11 @@ public class Estudiante implements Serializable {
         this.genero = genero;
     }
 
-    public int getEdad() {
+    public Long getEdad() {
         return edad;
     }
 
-    public void setEdad(int edad) {
+    public void setEdad(Long edad) {
         this.edad = edad;
     }
 

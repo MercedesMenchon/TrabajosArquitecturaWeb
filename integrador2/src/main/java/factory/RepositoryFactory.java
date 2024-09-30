@@ -4,7 +4,6 @@ package main.java.factory;
 
 import main.java.entities.Carrera;
 import main.java.entities.Estudiante;
-import main.java.entities.EstudianteCarrera;
 import main.java.repository.CarreraRepository;
 import main.java.repository.EstudianteCarrera_Repository;
 import main.java.repository.EstudianteRepository;
@@ -19,7 +18,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
@@ -143,7 +141,7 @@ public abstract class RepositoryFactory {
                     if (estudiante != null && carrera != null) {
 
                         EstudianteCarrera_Repository estudianteCarreraRepository=getEstudianteCarreraRepository();
-                        estudianteCarreraRepository.anotarEstudiante(estudiante, carrera, fechaInicio, fechaFin);
+                        estudianteCarreraRepository.anotarEstudianteCarrera(estudiante, carrera, fechaInicio, fechaFin);
                     }
                 } catch (Exception e) {
                     System.err.println("Error al insertar EstudianteCarrera: " + e.getMessage());

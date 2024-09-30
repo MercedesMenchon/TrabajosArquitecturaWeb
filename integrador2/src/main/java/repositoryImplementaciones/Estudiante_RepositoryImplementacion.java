@@ -1,5 +1,6 @@
 package main.java.repositoryImplementaciones;
 
+import main.java.DTO.EstudianteDTO;
 import main.java.entities.Estudiante;
 import main.java.repository.EstudianteRepository;
 
@@ -7,6 +8,7 @@ import javax.persistence.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 public class Estudiante_RepositoryImplementacion implements EstudianteRepository {
     private EntityManagerFactory emf;
@@ -27,6 +29,7 @@ public class Estudiante_RepositoryImplementacion implements EstudianteRepository
                 em.persist(estudiante);
             } else {
                 em.merge(estudiante);
+                System.out.println("Ya se encuentra creado, se modificaron los datos");
             }
             tx.commit();
         } catch (Exception e) {
@@ -45,7 +48,6 @@ public class Estudiante_RepositoryImplementacion implements EstudianteRepository
     }
 
 
-
     public Estudiante getEstudiantePorLU(Long LU) {
         EntityManager em = null;
         try {
@@ -62,6 +64,20 @@ public class Estudiante_RepositoryImplementacion implements EstudianteRepository
             }
         }
     }
+
+    public List<EstudianteDTO> findAllEstudiantesDTOOrdenadosPorApellido() {
+        String jpql = "SELECT e FROM Estudiante e ORDER BY e.apellido ASC";
+        EntityManager entityManager = emf.createEntityManager();
+        TypedQuery<Estudiante> query = entityManager.createQuery(jpql, Estudiante.class);
+        List<Estudiante> estudiantes = query.getResultList();
+        for (Estudiante estudiante : estudiantes) {
+            EstudianteDTO est = new EstudianteDTO(estudiante);
+        }
+
+        return null;
+    }
+}
+
 /*
     public void insertEstudiante(Estudiante estudiante, Connection conn) throws Exception {
         String insert = "INSERT INTO estudiante (LU,DNI,apellido,ciudadResidencia,edad, genero,nombre) VALUES (?, ?, ?,?,?,?,?)";
@@ -85,7 +101,7 @@ public class Estudiante_RepositoryImplementacion implements EstudianteRepository
             closePsAndCommit(conn, ps);
         }
 */
-    }
+
 
 
 

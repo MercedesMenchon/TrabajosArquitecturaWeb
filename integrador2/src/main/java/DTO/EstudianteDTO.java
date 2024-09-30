@@ -1,5 +1,7 @@
 package main.java.DTO;
 
+import main.java.entities.Estudiante;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,62 +25,60 @@ public class EstudianteDTO {
         this.DNI = DNI;
         this.carreras = new ArrayList<EstudianteCarreraDTO>();
     }
+    public EstudianteDTO(Estudiante est) {
 
+            this.LU=est.getLU();
+                this.ciudadResidencia=est.getCiudadResidencia();
+                this.genero=est.getGenero();
+                this.edad=est.getEdad();
+                this.apellido=est.getApellido();
+                this.nombre=est.getNombre();
+                this.DNI=est.getDNI();
+
+
+
+    }
     public Long getLU() {
         return LU;
     }
 
-    public void setLU(Long LU) {
-        this.LU = LU;
-    }
+
 
     public Long getDNI() {
         return DNI;
     }
 
-    public void setDNI(Long DNI) {
-        this.DNI = DNI;
-    }
+
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+
 
     public String getApellido() {
         return apellido;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
+
 
     public Long getEdad() {
         return edad;
     }
 
-    public void setEdad(Long edad) {
-        this.edad = edad;
-    }
+
 
     public String getGenero() {
         return genero;
     }
 
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
+
 
     public String getCiudadResidencia() {
         return ciudadResidencia;
     }
 
-    public void setCiudadResidencia(String ciudadResidencia) {
-        this.ciudadResidencia = ciudadResidencia;
-    }
+
 
     public void addCarrera(EstudianteCarreraDTO carrera) {
         if(!this.carreras.contains(carrera)) {

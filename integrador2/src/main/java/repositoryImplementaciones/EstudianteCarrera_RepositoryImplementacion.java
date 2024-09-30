@@ -28,7 +28,7 @@ public class EstudianteCarrera_RepositoryImplementacion implements EstudianteCar
 
 
     //Matricula un estudiante a una carrera
-    public void anotarEstudiante(Estudiante estudiante, Carrera carrera, LocalDate fechaInicio, LocalDate fechaFin) {
+    public void anotarEstudianteCarrera(Estudiante estudiante, Carrera carrera, LocalDate fechaInicio, LocalDate fechaFin) {
         EntityManager em = null;
         EntityTransaction et = null;
 
@@ -70,6 +70,50 @@ public class EstudianteCarrera_RepositoryImplementacion implements EstudianteCar
             }
         }
     }
+
+
+    public void matricularEstudiante(Long LU, Long idCarrera) {
+        EntityManager em = null;
+        EntityTransaction et = null;
+
+        try {
+            em = emf.createEntityManager();
+            et = em.getTransaction();
+            et.begin();
+
+            // Verifica si el estudiante y la carrera existen
+            Estudiante est = em.find(Estudiante.class, LU);
+            if (est == null) {
+                throw new IllegalArgumentException("No se encontró el estudiante con LU: " + LU);
+            }
+            Carrera car = em.find(Carrera.class, idCarrera);
+            if (car == null) {
+                throw new IllegalArgumentException("No se encontro la carrera con ID: " + idCarrera);
+            }
+
+            // Verifica si la inscripción ya existe
+            EstudianteCarreraID ecId = new EstudianteCarreraID(idCarrera, LU);
+            EstudianteCarrera existeEC = em.find(EstudianteCarrera.class, ecId);
+            if (existeEC != null) {
+                throw new SQLException("El estudiante ya está matriculado en esta carrera.");
+            }
+
+
+            EstudianteCarrera estudianteCarrera = new EstudianteCarrera(est,car);
+            em.persist(estudianteCarrera);
+            et.commit();
+        } catch (Exception e) {
+            if (et != null && et.isActive()) {
+                et.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
 
 
     /*
