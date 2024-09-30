@@ -4,7 +4,9 @@ package main.java.factory;
 
 import main.java.entities.Carrera;
 import main.java.entities.Estudiante;
+import main.java.entities.EstudianteCarrera;
 import main.java.repository.CarreraRepository;
+import main.java.repository.EstudianteCarrera_Repository;
 import main.java.repository.EstudianteRepository;
 import main.java.repositoryImplementaciones.Carrera_RepositoryImplementacion;
 import main.java.repositoryImplementaciones.EstudianteCarrera_RepositoryImplementacion;
@@ -19,6 +21,7 @@ import java.io.Reader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public abstract class RepositoryFactory {
 
@@ -120,35 +123,43 @@ public abstract class RepositoryFactory {
         }
 
         System.out.println("Carreras insertados");
+// Cargar EstudianteCarrera desde CSV
+        for (CSVRecord row : getData("estudianteCarrera.csv")) {
+            if (row.size() >= 4) {
+                Long LU = Long.parseLong(row.get(0));
+                Long idCarrera = Long.parseLong(row.get(1));
+                String fechaInicioStr = row.get(2);
+                LocalDate fechaInicio = fechaInicioStr.isEmpty() ? null : LocalDate.parse(fechaInicioStr);
+                String fechaFinStr = row.get(3);
+                LocalDate fechaFin = fechaFinStr.isEmpty() ? null : LocalDate.parse(fechaFinStr);
+                System.out.println(fechaFin);
+                System.out.println("----------------------------------------");
 
-    }
-/*
-        // Insertar Carreras desde CSV
-        for (CSVRecord row : getData("carreras.csv")) {
-            if (row.size() >= 2) {
-                Long id = Long.parseLong(row.get(0));
-                String nombre = row.get(1);
 
-                if (!nombre.isEmpty() && id >= 0) {
-                    try {
-                        Carrera carrera = new Carrera(nombre); // Asegúrate de que Carrera tenga un constructor sin ID si el ID es generado automáticamente
-                        carreraRepository.insertCarrera(carrera);
-                    } catch (NumberFormatException e) {
-                        System.err.println("Error de formato en datos de carrera: " + e.getMessage());
+                try {
+                    Estudiante estudiante = estudianteRepository.getEstudiantePorLU(LU);
+                    Carrera carrera = carreraRepository.findCarreraById(idCarrera);
+
+                    if (estudiante != null && carrera != null) {
+
+                        EstudianteCarrera_Repository estudianteCarreraRepository=getEstudianteCarreraRepository();
+                        estudianteCarreraRepository.anotarEstudiante(estudiante, carrera, fechaInicio, fechaFin);
                     }
+                } catch (Exception e) {
+                    System.err.println("Error al insertar EstudianteCarrera: " + e.getMessage());
                 }
             }
         }
-
-        System.out.println("Carreras insertadas");
-    }*/
-
-
+        System.out.println("EstudianteCarrera insertados");
+    }
+    }
 
 
 
 
 
 
-}
+
+
+
 

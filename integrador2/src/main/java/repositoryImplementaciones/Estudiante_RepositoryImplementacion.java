@@ -3,9 +3,7 @@ package main.java.repositoryImplementaciones;
 import main.java.entities.Estudiante;
 import main.java.repository.EstudianteRepository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
+import javax.persistence.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -46,6 +44,24 @@ public class Estudiante_RepositoryImplementacion implements EstudianteRepository
         }
     }
 
+
+
+    public Estudiante getEstudiantePorLU(Long LU) {
+        EntityManager em = null;
+        try {
+            em = emf.createEntityManager();
+            String jpql = "SELECT e FROM Estudiante e WHERE e.LU = :lu";
+            TypedQuery<Estudiante> query = em.createQuery(jpql, Estudiante.class);
+            query.setParameter("lu", LU);
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null; // O maneja según tu lógica de negocio
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
 /*
     public void insertEstudiante(Estudiante estudiante, Connection conn) throws Exception {
         String insert = "INSERT INTO estudiante (LU,DNI,apellido,ciudadResidencia,edad, genero,nombre) VALUES (?, ?, ?,?,?,?,?)";

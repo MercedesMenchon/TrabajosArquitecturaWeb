@@ -21,9 +21,6 @@ public class Main {
        Carrera_RepositoryImplementacion carRepository = rp.getCarreraRepository();
        EstudianteCarrera_RepositoryImplementacion estCarRepository = rp.getEstudianteCarreraRepository();
 
-        // Cargar Estudiantes desde CSV
-       // cargarEstudiantesDesdeCSV(estudianteRepository, "src/main/java/org/example/datasets/estudiantes.csv");
-        // Cargar Carreras desde CSV
-        //cargarCarrerasDesdeCSV(carreraRepository, "src/main/java/org/example/datasets/carreras.csv");
+
     }
 }

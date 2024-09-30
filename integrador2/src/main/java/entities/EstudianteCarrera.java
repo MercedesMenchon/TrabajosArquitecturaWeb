@@ -19,10 +19,10 @@ public class EstudianteCarrera implements Serializable {
     @Column(nullable = true)
     private LocalDate fechaFin;
 
-    public EstudianteCarrera(Estudiante estudiante, Carrera carrera) {
+    public EstudianteCarrera(Estudiante estudiante, Carrera carrera, LocalDate inicio) {
         this.estudiante = estudiante;
         this.carrera = carrera;
-        this.fechaInicio=LocalDate.now();
+        this.fechaInicio=inicio;
         this.fechaFin=null;
         //  if() HACER QUE CONTROLE QUE NO EXISTA ESE REGISTRO
         this.id = new EstudianteCarreraID(carrera.getIdCarrera(),estudiante.getLU());

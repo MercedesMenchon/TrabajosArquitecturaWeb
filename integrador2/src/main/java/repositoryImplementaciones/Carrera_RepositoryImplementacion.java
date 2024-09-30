@@ -7,6 +7,7 @@ import main.java.repository.CarreraRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import java.sql.Connection;
 
 public class Carrera_RepositoryImplementacion implements CarreraRepository {
@@ -40,6 +41,20 @@ public class Carrera_RepositoryImplementacion implements CarreraRepository {
             if (em != null) {
                 em.close();
 
+            }
+        }
+    }
+
+    public Carrera findCarreraById(Long idCarrera) {
+        EntityManager em = null;
+        try {
+            em = emf.createEntityManager();
+            return em.find(Carrera.class, idCarrera);
+        } catch (NoResultException e) {
+            return null; // O maneja según tu lógica de negocio
+        } finally {
+            if (em != null) {
+                em.close();
             }
         }
     }
