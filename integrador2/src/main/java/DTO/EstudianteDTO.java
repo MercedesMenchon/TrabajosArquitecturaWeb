@@ -13,7 +13,7 @@ public class EstudianteDTO {
     private Long edad;
     private String genero;
     private String ciudadResidencia;
-    private List<EstudianteCarreraDTO> carreras;
+
 
     public EstudianteDTO(Long LU, String ciudadResidencia, String genero, Long edad, String apellido, String nombre, Long DNI) {
         this.LU = LU;
@@ -23,7 +23,6 @@ public class EstudianteDTO {
         this.apellido = apellido;
         this.nombre = nombre;
         this.DNI = DNI;
-        this.carreras = new ArrayList<EstudianteCarreraDTO>();
     }
     public EstudianteDTO(Estudiante est) {
 
@@ -80,12 +79,6 @@ public class EstudianteDTO {
 
 
 
-    public void addCarrera(EstudianteCarreraDTO carrera) {
-        if(!this.carreras.contains(carrera)) {
-            this.carreras.add(carrera);
-        }
-    }
-
 
     @Override
     public String toString() {
@@ -97,7 +90,6 @@ public class EstudianteDTO {
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", edad=" + edad +
-                ", carreras=" + carreras +
                 '}';
     }
 }

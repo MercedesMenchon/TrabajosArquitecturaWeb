@@ -2,6 +2,7 @@ package main.java;
 
 import main.java.DTO.CarreraDTO;
 import main.java.DTO.EstudianteDTO;
+import main.java.DTO.ReporteDTO;
 import main.java.entities.Estudiante;
 import main.java.factory.RepositoryFactory;
 import main.java.repositoryImplementaciones.Carrera_RepositoryImplementacion;
@@ -32,12 +33,12 @@ public class Main {
 
         //b) matricular un estudiante en una carrera
 
-//        estCarRepository.matricularEstudiante(25L, 2L);
+        //  estCarRepository.matricularEstudiante(25L, 2L);
 
         //c)recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple.
         // El criterio elegido es ordenamiento por apellido
-//        for (EstudianteDTO est: estRepository.findAllEstudiantesDTOOrdenadosPorApellido()) {
-//            System.out.println(est);
+        //     for (EstudianteDTO est: estRepository.findAllEstudiantesDTOOrdenadosPorApellido()) {
+//           System.out.println(est);
 //        }
 
         //d) recuperar un estudiante, en base a su número de libreta universitaria.
@@ -50,12 +51,19 @@ public class Main {
 //        }
 
         //f) recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
-            for (CarreraDTO car: estRepository.findCarrerasConEstudiantesInscriptosOrdenadasPorCantidad()) {
-            System.out.println(car);
-        }
+//            for (CarreraDTO car: carRepository.findCarrerasConEstudiantesInscriptosOrdenadasPorCantidad()) {
+//            System.out.println(car);
+//        }
 
         //g) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
+//        for (EstudianteDTO est: estRepository.findEstudiantesPorCarreraYCiudad(1L, "Buenos Aires")) {
+//            System.out.println(est);
+//        }
+
+        for (ReporteDTO reporteDTO : carRepository.generarReporteCarreras()) {
+            System.out.println(reporteDTO);
 
 
+        }
     }
-}
+    }

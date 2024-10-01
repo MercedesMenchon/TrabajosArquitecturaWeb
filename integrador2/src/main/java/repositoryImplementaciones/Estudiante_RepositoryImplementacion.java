@@ -109,54 +109,27 @@ public class Estudiante_RepositoryImplementacion implements EstudianteRepository
         return estudiantesDTO;
     }
 
-    public List<CarreraDTO> findCarrerasConEstudiantesInscriptosOrdenadasPorCantidad() {
+    public List<EstudianteDTO> findEstudiantesPorCarreraYCiudad(Long idCarrera, String ciudadResidencia) {
 
-        String jpql = "SELECT c, COUNT(ec) as inscriptos FROM Carrera c " +
-                "JOIN EstudianteCarrera ec ON c.id = ec.carrera.id " +
-                "GROUP BY c.id " +
-                "HAVING COUNT(ec) > 0 " +
-                "ORDER BY inscriptos DESC";
+        String jpql = "SELECT e FROM Estudiante e " +
+                "JOIN EstudianteCarrera ec ON e.LU = ec.estudiante.LU " +
+                "WHERE ec.carrera.id = :idCarrera " +
+                "AND e.ciudadResidencia = :ciudadResidencia";
+
 
         EntityManager entityManager = emf.createEntityManager();
-        TypedQuery<Object[]> query = entityManager.createQuery(jpql, Object[].class);
-        List<Object[]> results = query.getResultList();
-        List<CarreraDTO> carrerasDTO = new ArrayList<>();
+        TypedQuery<Estudiante> query = entityManager.createQuery(jpql, Estudiante.class);
+        query.setParameter("idCarrera", idCarrera);
+        query.setParameter("ciudadResidencia", ciudadResidencia);
 
-        for (Object[] result : results) {
+        List<Estudiante> estudiantes = query.getResultList();
+        List<EstudianteDTO> estudiantesDTO = new ArrayList<>();
 
-            Carrera carrera = (Carrera) result[0];
-            Long cantidadInscriptos = (Long) result[1];
-            CarreraDTO carreraDTO = new CarreraDTO(carrera.getNombreCarrera(), carrera.getIdCarrera(), cantidadInscriptos);
-            carrerasDTO.add(carreraDTO);
+        for (Estudiante estudiante : estudiantes) {
+            EstudianteDTO estudianteDTO = new EstudianteDTO(estudiante);
+            estudiantesDTO.add(estudianteDTO);
         }
-        return carrerasDTO;
+
+        return estudiantesDTO;
     }
 }
-
-/*
-    public void insertEstudiante(Estudiante estudiante, Connection conn) throws Exception {
-        String insert = "INSERT INTO estudiante (LU,DNI,apellido,ciudadResidencia,edad, genero,nombre) VALUES (?, ?, ?,?,?,?,?)";
-        PreparedStatement ps = null;
-        try {
-            ps = conn.prepareStatement(insert);
-            ps.setLong(1, estudiante.getLU());
-            ps.setInt(2, estudiante.getDNI());
-            ps.setString(3, estudiante.getApellido());
-            ps.setString(4, estudiante.getCiudadResidencia());
-            ps.setInt(5, estudiante.getEdad());
-            ps.setString(6, estudiante.getGenero());
-            ps.setString(7, estudiante.getNombre());
-
-            if (ps.executeUpdate() == 0) {
-                throw new Exception("No se pudo insertar");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closePsAndCommit(conn, ps);
-        }
-*/
-
-
-
-
