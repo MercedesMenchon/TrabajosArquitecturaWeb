@@ -17,7 +17,7 @@ public class Main {
 
 
         RepositoryFactory rp = RepositoryFactory.getRepositoryFactory(1);
-    //    rp.populateDB();
+        //rp.populateDB();
         Estudiante_RepositoryImplementacion estRepository = rp.getEstudianteRepository();
         Carrera_RepositoryImplementacion carRepository = rp.getCarreraRepository();
         EstudianteCarrera_RepositoryImplementacion estCarRepository = rp.getEstudianteCarreraRepository();
@@ -25,18 +25,16 @@ public class Main {
 
         //a) dar de alta un estudiante
 
-       // Estudiante est = new Estudiante("Karina", "Sanchez", 20, "Femenino", 24567843, "Olavarria", 30L);
-         //estRepository.insertEstudiante(est);
+//        Estudiante est = new Estudiante("Karina", "Sanchez", 20L, "Femenino", 24567843L, "Olavarria", 30L);
+//        estRepository.insertEstudiante(est);
 
         //b) matricular un estudiante en una carrera
 
-       // estCarRepository.matricularEstudiante(25L, 2L);
+//        estCarRepository.matricularEstudiante(25L, 2L);
 
         //c)recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple.
 
-
-        System.out.println(estRepository.findAllEstudiantesDTOOrdenadosPorApellido());
-
+//        System.out.println(estRepository.findAllEstudiantesDTOOrdenadosPorApellido());
 
         //d) recuperar un estudiante, en base a su número de libreta universitaria.
         //e) recuperar todos los estudiantes, en base a su género.

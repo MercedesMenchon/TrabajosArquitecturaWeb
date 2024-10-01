@@ -77,10 +77,10 @@ public abstract class RepositoryFactory {
         for (CSVRecord row : getData("estudiantes.csv")) {
             if (row.size() >= 7) {
                 Long LU = Long.parseLong(row.get(0));
-                int DNI = Integer.parseInt(row.get(1));
+                Long DNI = Long.parseLong(row.get(1));
                 String nombre = row.get(2);
                 String apellido = row.get(3);
-                int edad = Integer.parseInt(row.get(4));
+                Long edad = Long.parseLong(row.get(4));
                 String genero = row.get(5);
                 String ciudad = row.get(6);
                 // CONSULTAR LA CONDICION DE LOS LONG
