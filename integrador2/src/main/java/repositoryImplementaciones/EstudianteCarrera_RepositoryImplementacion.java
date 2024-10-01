@@ -9,7 +9,7 @@ import main.java.repository.EstudianteCarrera_Repository;
 import javax.persistence.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Date;
+
 
 public class EstudianteCarrera_RepositoryImplementacion implements EstudianteCarrera_Repository {
     private EntityManagerFactory emf;
@@ -27,7 +27,6 @@ public class EstudianteCarrera_RepositoryImplementacion implements EstudianteCar
     }
 
 
-    //Matricula un estudiante a una carrera
     public void anotarEstudianteCarrera(Estudiante estudiante, Carrera carrera, LocalDate fechaInicio, LocalDate fechaFin) {
         EntityManager em = null;
         EntityTransaction et = null;
@@ -36,8 +35,6 @@ public class EstudianteCarrera_RepositoryImplementacion implements EstudianteCar
             em = emf.createEntityManager();
             et = em.getTransaction();
             et.begin();
-
-            // Verifica si el estudiante y la carrera existen
             Estudiante est = em.find(Estudiante.class, estudiante.getLU());
             if (est == null) {
                 throw new IllegalArgumentException("No se encontró el estudiante con LU: " + estudiante.getLU());
@@ -47,13 +44,11 @@ public class EstudianteCarrera_RepositoryImplementacion implements EstudianteCar
                 throw new IllegalArgumentException("No se encontro la carrera con ID: " + carrera.getIdCarrera());
             }
 
-            // Verifica si la inscripción ya existe
             EstudianteCarreraID ecId = new EstudianteCarreraID(carrera.getIdCarrera(), estudiante.getLU());
             EstudianteCarrera existeEC = em.find(EstudianteCarrera.class, ecId);
             if (existeEC != null) {
                 throw new SQLException("El estudiante ya está matriculado en esta carrera.");
             }
-
 
             EstudianteCarrera estudianteCarrera = new EstudianteCarrera(est,car,fechaInicio);
             estudianteCarrera.setFechaFin(fechaFin);
@@ -81,7 +76,6 @@ public class EstudianteCarrera_RepositoryImplementacion implements EstudianteCar
             et = em.getTransaction();
             et.begin();
 
-            // Verifica si el estudiante y la carrera existen
             Estudiante est = em.find(Estudiante.class, LU);
             if (est == null) {
                 throw new IllegalArgumentException("No se encontró el estudiante con LU: " + LU);
@@ -91,7 +85,6 @@ public class EstudianteCarrera_RepositoryImplementacion implements EstudianteCar
                 throw new IllegalArgumentException("No se encontro la carrera con ID: " + idCarrera);
             }
 
-            // Verifica si la inscripción ya existe
             EstudianteCarreraID ecId = new EstudianteCarreraID(idCarrera, LU);
             EstudianteCarrera existeEC = em.find(EstudianteCarrera.class, ecId);
             if (existeEC != null) {
@@ -114,7 +107,6 @@ public class EstudianteCarrera_RepositoryImplementacion implements EstudianteCar
         }
     }
 
-    // Cierra el EntityManagerFactory al finalizar
     public void close() {
         if (emf != null) {
             emf.close();

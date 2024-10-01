@@ -3,11 +3,9 @@ package main.java.repositoryImplementaciones;
 import main.java.DTO.CarreraDTO;
 import main.java.DTO.ReporteDTO;
 import main.java.entities.Carrera;
-import main.java.entities.Estudiante;
 import main.java.repository.CarreraRepository;
 
 import javax.persistence.*;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +50,7 @@ public class Carrera_RepositoryImplementacion implements CarreraRepository {
             em = emf.createEntityManager();
             return em.find(Carrera.class, idCarrera);
         } catch (NoResultException e) {
-            return null; // O maneja según tu lógica de negocio
+            return null;
         } finally {
             if (em != null) {
                 em.close();

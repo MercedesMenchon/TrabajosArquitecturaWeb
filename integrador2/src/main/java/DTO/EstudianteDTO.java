@@ -2,8 +2,6 @@ package main.java.DTO;
 
 import main.java.entities.Estudiante;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class EstudianteDTO {
     private Long LU;

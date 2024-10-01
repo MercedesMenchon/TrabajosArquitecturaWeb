@@ -1,7 +1,5 @@
 package main.java.factory;
 
-
-
 import main.java.entities.Carrera;
 import main.java.entities.Estudiante;
 import main.java.repository.CarreraRepository;
@@ -39,7 +37,6 @@ public abstract class RepositoryFactory {
     public static RepositoryFactory getRepositoryFactory(int whichFactory) {
         switch (whichFactory) {
             case MYSQL_JDBC:
-                System.out.println("Entre");
                 return new RepositoryFactoryMySQL();
             case DERBY_JDBC:
                 return new RepositoryFactoryDerby();
@@ -83,7 +80,6 @@ public abstract class RepositoryFactory {
                 Long edad = Long.parseLong(row.get(4));
                 String genero = row.get(5);
                 String ciudad = row.get(6);
-                // CONSULTAR LA CONDICION DE LOS LONG
                 if (!nombre.isEmpty() && !apellido.isEmpty() && DNI>0 && !ciudad.isEmpty()) {
                     try {
 
@@ -91,7 +87,7 @@ public abstract class RepositoryFactory {
 
                         estudianteRepository.insertEstudiante(estudiante);
                     } catch (NumberFormatException e) {
-                        System.err.println("Error de formato en datos de cliente: " + e.getMessage());
+                        System.err.println("Error de formato en datos de estudiantes: " + e.getMessage());
                     }
                 }
             }
@@ -99,10 +95,7 @@ public abstract class RepositoryFactory {
         System.out.println("Estudiantes insertados");
 
         for (CSVRecord fila : getData("carreras.csv")) {
-            System.out.println("Entre antes ---------------------------------------------");
-            System.out.println(fila.size());
             if (fila.size() >= 2) {
-                System.out.println("Entre");
                 Long id = Long.parseLong(fila.get(0));
                 String nombre = fila.get(1);
 
@@ -120,8 +113,7 @@ public abstract class RepositoryFactory {
             }
         }
 
-        System.out.println("Carreras insertados");
-// Cargar EstudianteCarrera desde CSV
+        System.out.println("Carreras insertadas");
         for (CSVRecord row : getData("estudianteCarrera.csv")) {
             if (row.size() >= 4) {
                 Long LU = Long.parseLong(row.get(0));
@@ -130,9 +122,6 @@ public abstract class RepositoryFactory {
                 LocalDate fechaInicio = fechaInicioStr.isEmpty() ? null : LocalDate.parse(fechaInicioStr);
                 String fechaFinStr = row.get(3);
                 LocalDate fechaFin = fechaFinStr.isEmpty() ? null : LocalDate.parse(fechaFinStr);
-                System.out.println(fechaFin);
-                System.out.println("----------------------------------------");
-
 
                 try {
                     Estudiante estudiante = estudianteRepository.getEstudiantePorLU(LU);

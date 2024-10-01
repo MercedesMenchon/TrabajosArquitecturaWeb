@@ -1,15 +1,11 @@
 package main.java.repositoryImplementaciones;
 
-import main.java.DTO.CarreraDTO;
+
 import main.java.DTO.EstudianteDTO;
-import main.java.entities.Carrera;
 import main.java.entities.Estudiante;
 import main.java.repository.EstudianteRepository;
 
 import javax.persistence.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +56,7 @@ public class Estudiante_RepositoryImplementacion implements EstudianteRepository
             query.setParameter("lu", LU);
             return query.getSingleResult();
         } catch (NoResultException e) {
-            return null; // O maneja según tu lógica de negocio
+            return null;
         } finally {
             if (em != null) {
                 em.close();
