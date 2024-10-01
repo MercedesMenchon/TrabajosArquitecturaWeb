@@ -1,6 +1,8 @@
 package main.java.repositoryImplementaciones;
 
+import main.java.DTO.CarreraDTO;
 import main.java.DTO.EstudianteDTO;
+import main.java.entities.Carrera;
 import main.java.entities.Estudiante;
 import main.java.repository.EstudianteRepository;
 
@@ -8,6 +10,7 @@ import javax.persistence.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Estudiante_RepositoryImplementacion implements EstudianteRepository {
@@ -70,11 +73,63 @@ public class Estudiante_RepositoryImplementacion implements EstudianteRepository
         EntityManager entityManager = emf.createEntityManager();
         TypedQuery<Estudiante> query = entityManager.createQuery(jpql, Estudiante.class);
         List<Estudiante> estudiantes = query.getResultList();
+        List<EstudianteDTO> listaEstudianteDTO = new ArrayList<>();
         for (Estudiante estudiante : estudiantes) {
             EstudianteDTO est = new EstudianteDTO(estudiante);
+            listaEstudianteDTO.add(est);
         }
+        return listaEstudianteDTO;
+    }
 
-        return null;
+    public EstudianteDTO findEstudianteDTOByLU(Long LU) {
+
+        String jpql = "SELECT e FROM Estudiante e WHERE e.LU = :LU";
+        EntityManager entityManager = emf.createEntityManager();
+        TypedQuery<Estudiante> query = entityManager.createQuery(jpql, Estudiante.class);
+        query.setParameter("LU", LU);
+        Estudiante estudiante = query.getSingleResult();
+        EstudianteDTO estudianteDTO = new EstudianteDTO(estudiante);
+        entityManager.close();
+
+        return estudianteDTO;
+    }
+
+    public List<EstudianteDTO> findEstudiantesDTOByGenero(String genero) {
+
+        String jpql = "SELECT e FROM Estudiante e WHERE e.genero = :genero";
+        EntityManager entityManager = emf.createEntityManager();
+        TypedQuery<Estudiante> query = entityManager.createQuery(jpql, Estudiante.class);
+        query.setParameter("genero", genero);
+        List<Estudiante> estudiantes = query.getResultList();
+        List<EstudianteDTO> estudiantesDTO = new ArrayList<>();
+        for (Estudiante estudiante : estudiantes) {
+            EstudianteDTO estudianteDTO = new EstudianteDTO(estudiante);
+            estudiantesDTO.add(estudianteDTO);
+        }
+        return estudiantesDTO;
+    }
+
+    public List<CarreraDTO> findCarrerasConEstudiantesInscriptosOrdenadasPorCantidad() {
+
+        String jpql = "SELECT c, COUNT(ec) as inscriptos FROM Carrera c " +
+                "JOIN EstudianteCarrera ec ON c.id = ec.carrera.id " +
+                "GROUP BY c.id " +
+                "HAVING COUNT(ec) > 0 " +
+                "ORDER BY inscriptos DESC";
+
+        EntityManager entityManager = emf.createEntityManager();
+        TypedQuery<Object[]> query = entityManager.createQuery(jpql, Object[].class);
+        List<Object[]> results = query.getResultList();
+        List<CarreraDTO> carrerasDTO = new ArrayList<>();
+
+        for (Object[] result : results) {
+
+            Carrera carrera = (Carrera) result[0];
+            Long cantidadInscriptos = (Long) result[1];
+            CarreraDTO carreraDTO = new CarreraDTO(carrera.getNombreCarrera(), carrera.getIdCarrera(), cantidadInscriptos);
+            carrerasDTO.add(carreraDTO);
+        }
+        return carrerasDTO;
     }
 }
 

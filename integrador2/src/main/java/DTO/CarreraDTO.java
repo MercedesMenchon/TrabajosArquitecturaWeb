@@ -6,6 +6,7 @@ import java.util.List;
 public class CarreraDTO {
 
     private Long idCarrera;
+    private Long cantidad;
     private String nombreCarrera;
     private List<EstudianteCarreraDTO> estudiantes;
 
@@ -14,6 +15,12 @@ public class CarreraDTO {
         this.idCarrera = idCarrera;
         this.nombreCarrera = nombreCarrera;
         this.estudiantes = new ArrayList<EstudianteCarreraDTO>();
+    }
+
+    public CarreraDTO(String nombreCarrera, Long idCarrera, Long cantidad){
+        this.idCarrera = idCarrera;
+        this.nombreCarrera = nombreCarrera;
+        this.cantidad = cantidad;
     }
 
     public Long getIdCarrera() {
