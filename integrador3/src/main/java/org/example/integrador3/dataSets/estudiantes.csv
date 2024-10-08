@@ -1,0 +1,11 @@
+﻿LU,DNI,Nombre,Apellido,Edad,Genero,CiudadResidencia
+1,12345678,Juan,Pérez,20,Masculino,Buenos Aires
+2,23456789,María,García,22,Femenino,Rosario
+3,34567890,Carlos,López,21,Masculino,Córdoba
+4,45678901,Lucía,Fernández,19,Femenino,La Plata
+5,56789012,Mateo,Gómez,23,Masculino,Mendoza
+6,67890123,Sofía,Rodríguez,20,Femenino,Salta
+7,78901234,Martín,Díaz,21,Masculino,Tucumán
+8,89012345,Ana,Martínez,24,Femenino,Neuquén
+9,90123456,Pedro,Sánchez,22,Masculino,Chaco
+10,10123456,Laura,Morales,19,Femenino,Santa Fe
