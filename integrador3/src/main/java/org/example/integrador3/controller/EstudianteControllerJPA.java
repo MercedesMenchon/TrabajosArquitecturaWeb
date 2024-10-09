@@ -1,7 +1,7 @@
 package org.example.integrador3.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.example.integrador3.Servicio.EstudianteServicio;
+import org.example.integrador3.servicio.EstudianteServicio;
 import org.example.integrador3.model.Estudiante;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

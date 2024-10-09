@@ -1,4 +1,4 @@
-package org.example.integrador3.Servicio;
+package org.example.integrador3.servicio;
 
 
 import java.util.List;
