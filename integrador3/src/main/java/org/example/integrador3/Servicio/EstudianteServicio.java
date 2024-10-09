@@ -1,4 +1,4 @@
-package org.example.integrador3.servicio;
+package org.example.integrador3.Servicio;
 
 import jakarta.transaction.Transactional;
 import org.example.integrador3.DTO.EstudianteDTO;
@@ -18,15 +18,13 @@ public class EstudianteServicio implements BaseService<Estudiante>{
 
     //a) dar de alta un estudiante
     @Override
-    public Estudiante save(Estudiante entity) throws Exception {
+    public Estudiante save(Estudiante estudiante) throws Exception {
         try{
-            return estudianteRepository.save(entity);
+            return estudianteRepository.save(estudiante);
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
     }
-
-    //b) matricular un estudiante en una carrera
 
     //c) recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple.
     @Transactional
@@ -47,6 +45,18 @@ public class EstudianteServicio implements BaseService<Estudiante>{
         try{
             Optional<Estudiante> estudiante = estudianteRepository.findById(id);
             return estudiante.get();
+            //VER SI HAY QUE RETORNARLO CON DTO
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    //e) recuperar todos los estudiantes, en base a su género.
+    public Estudiante findByGenero(String genero) throws Exception{
+        try{
+            Optional<Estudiante> estudiante = estudianteRepository.findByGenero(genero);
+            return estudiante.get();
+            //VER SI HAY QUE RETORNARLO CON DTO
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
@@ -66,6 +76,7 @@ public class EstudianteServicio implements BaseService<Estudiante>{
     public boolean delete(Long id) throws Exception {
         return false;
     }
+
 
 }
 
