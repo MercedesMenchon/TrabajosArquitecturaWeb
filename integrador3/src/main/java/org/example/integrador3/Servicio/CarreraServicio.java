@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CarreraServicio implements BaseService<Carrera> {
+public class CarreraServicio implements BaseService<CarreraDTO> {
 
     @Autowired
     private CarreraRepository carreraRepository;
@@ -44,17 +44,23 @@ public class CarreraServicio implements BaseService<Carrera> {
     }
 
     @Override
-    public Carrera findCarreraById(Long id) throws Exception {
-        return carreraRepository.findCarreraById(id);
+    public CarreraDTO findById(Long id) throws Exception {
+        Carrera resultado = carreraRepository.findCarreraById(id);
+        CarreraDTO carreraDTO = null;
+        if (resultado != null){
+            carreraDTO = new CarreraDTO(resultado.getIdCarrera(),resultado.getNombreCarrera());
+        }
+        return carreraDTO;
     }
 
+
     @Override
-    public Carrera save(Carrera entity) throws Exception {
+    public CarreraDTO save(CarreraDTO entity) throws Exception {
         return null;
     }
 
     @Override
-    public Carrera update(Long id, Carrera entity) throws Exception {
+    public CarreraDTO update(Long id, CarreraDTO entity) throws Exception {
         return null;
     }
 

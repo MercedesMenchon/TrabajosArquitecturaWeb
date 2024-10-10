@@ -39,10 +39,12 @@ public class CargaDeDatos {
 
     private final EstudianteRepository estudianteRepository;
     private final CarreraRepository carreraRepository;
+    private final EstudianteCarreraRepository estudianteCarreraRepository;
     @Autowired
-    public CargaDeDatos(EstudianteRepository estudianteRepository, CarreraRepository carreraRepository ) {
+    public CargaDeDatos(EstudianteRepository estudianteRepository, CarreraRepository carreraRepository, EstudianteCarreraRepository estudianteCarreraRepository) {
         this.estudianteRepository = estudianteRepository;
         this.carreraRepository = carreraRepository;
+        this.estudianteCarreraRepository = estudianteCarreraRepository;
     }
 
     private Iterable<CSVRecord> getData(String archivo) throws IOException {
@@ -112,8 +114,8 @@ public class CargaDeDatos {
 
                         if (estudiante != null && carrera != null) {
 
-                            EstudianteCarreraRepository estudianteCarreraRepository=getEstudianteCarreraRepository();
-                            estudianteCarreraRepository.anotarEstudianteCarrera(estudiante, carrera, fechaInicio, fechaFin);
+                            EstudianteCarreraRepository estudianteCarreraRepository = getEstudianteCarreraRepository();
+                            estudianteCarreraRepository.matricularEstudianteEnCarrera(estudiante, carrera, fechaInicio, fechaFin);
                         }
                     } catch (Exception e) {
                         System.err.println("Error al insertar EstudianteCarrera: " + e.getMessage());

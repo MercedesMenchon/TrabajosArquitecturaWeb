@@ -30,9 +30,9 @@ public class CarreraController{
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity findCarreraById(Long id){
+    public ResponseEntity findById(Long id){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(carreraServicio.findCarreraById(id));
+            return ResponseEntity.status(HttpStatus.OK).body(carreraServicio.findById(id));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. No se encontró la carrera.\"}");
         }
