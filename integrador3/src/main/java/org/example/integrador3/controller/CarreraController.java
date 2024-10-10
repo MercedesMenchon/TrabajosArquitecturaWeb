@@ -2,6 +2,7 @@ package org.example.integrador3.controller;
 
 import org.example.integrador3.Servicio.CarreraServicio;
 import org.example.integrador3.Servicio.EstudianteServicio;
+import org.example.integrador3.model.Carrera;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class CarreraController{
 
     //f) recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
 
-    @GetMapping("estudiantes-inscriptos")
+    @GetMapping("/estudiantes-inscriptos")
     public ResponseEntity<?> getCarrerasConEstudiantesInscriptosOrdenadasPorCantidad() {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(carreraServicio.getCarrerasConEstudiantesInscriptosOrdenadasPorCantidad());
@@ -28,4 +29,12 @@ public class CarreraController{
 
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity findCarreraById(Long id){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(carreraServicio.findCarreraById(id));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. No se encontró la carrera.\"}");
+        }
+    }
 }

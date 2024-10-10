@@ -44,8 +44,8 @@ public class CarreraServicio implements BaseService<Carrera> {
     }
 
     @Override
-    public Carrera findById(Long id) throws Exception {
-        return null;
+    public Carrera findCarreraById(Long id) throws Exception {
+        return carreraRepository.findCarreraById(id);
     }
 
     @Override

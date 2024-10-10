@@ -7,12 +7,9 @@ import org.example.integrador3.repository.EstudianteCarreraRepository;
 import org.example.integrador3.repository.EstudianteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import springboot.app.modelos.Perro;
-import springboot.app.repositorios.PerroRepositorio;
 
 import java.io.File;
 import java.io.FileReader;
