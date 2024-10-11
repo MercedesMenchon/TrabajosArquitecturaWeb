@@ -12,6 +12,7 @@ public class CarreraDTO {
     public CarreraDTO(Long idCarrera, String nombreCarrera) {
         this.idCarrera = idCarrera;
         this.nombreCarrera = nombreCarrera;
+        this.cantidad=0L;
 
     }
 
@@ -25,7 +26,9 @@ public class CarreraDTO {
         return idCarrera;
     }
 
-
+    public Long getCantidad() {
+        return cantidad;
+    }
 
     public String getNombreCarrera() {
         return nombreCarrera;

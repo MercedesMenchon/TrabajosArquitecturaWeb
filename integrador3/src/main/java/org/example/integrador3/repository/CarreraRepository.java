@@ -8,12 +8,14 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface CarreraRepository extends JpaRepository<Carrera, Long> {
+
     @Query("SELECT c, COUNT(ec) as inscriptos FROM Carrera c " +
             "JOIN EstudianteCarrera ec ON c.idCarrera = ec.carrera.idCarrera " +
             "GROUP BY c.idCarrera " +
             "HAVING COUNT(ec) > 0 " +
             "ORDER BY inscriptos DESC")
-    public List<Carrera[]> getCarrerasConEstudiantesInscriptosOrdenadasPorCantidad();
+
+    public List<Object[]> getCarrerasConEstudiantesInscriptosOrdenadasPorCantidad();
 
 
     @Query("SELECT c FROM Carrera c WHERE  c.idCarrera = :idCarrera")
