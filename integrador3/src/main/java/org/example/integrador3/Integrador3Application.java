@@ -16,7 +16,9 @@ public class Integrador3Application {
     public static void main(String[] args) {
         SpringApplication.run(Integrador3Application.class, args);
     }
-    @PostConstruct
-    public void init() throws IOException {
-        cargaDeDatos.cargarDesdeCSV();
-    }}
+//    @PostConstruct
+//    public void init() throws IOException {
+//        System.out.println("ENTREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE-----------------------------------------------------------------------------------");
+//        cargaDeDatos.cargarDesdeCSV();
+//    }
+ }

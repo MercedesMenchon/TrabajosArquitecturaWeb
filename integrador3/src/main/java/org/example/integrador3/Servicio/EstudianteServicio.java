@@ -14,19 +14,12 @@ import java.util.stream.Collectors;
 
 // CAMBIAR LOS RETORNOS A DTO
 @Service
-public class EstudianteServicio implements BaseService<Estudiante>{
+public class EstudianteServicio{
     @Autowired
     private EstudianteRepository estudianteRepository;
 
     //a) dar de alta un estudiante
-    @Override
-    public Estudiante save(Estudiante estudiante) throws Exception {
-        try{
-            return estudianteRepository.save(estudiante);
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
-        }
-    }
+
 
     //c) recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple.
     @Transactional
@@ -41,40 +34,55 @@ public class EstudianteServicio implements BaseService<Estudiante>{
         }
     }
 
-    //d) recuperar un estudiante, en base a su número de libreta universitaria.
-    @Override
-    public Estudiante findById(Long id) throws Exception {
+
+
+    public EstudianteDTO findById(Long id) throws Exception {
+        try {
+            Optional<Estudiante> estudianteOpt = estudianteRepository.findById(id);
+            if (estudianteOpt.isPresent()) {
+                Estudiante estudiante = estudianteOpt.get();
+                EstudianteDTO resultado = new EstudianteDTO(estudiante);
+                return resultado;
+            } else {
+                throw new Exception("Estudiante no encontrado");
+            }
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+
+    public Estudiante save(Estudiante estudiante) throws Exception {
         try{
-            Optional<Estudiante> estudiante = estudianteRepository.findById(id);
-            return estudiante.get();
-            //VER SI HAY QUE RETORNARLO CON DTO
+            return estudianteRepository.save(estudiante);
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
     }
 
     //e) recuperar todos los estudiantes, en base a su género.
-    public Estudiante findByGenero(String genero) throws Exception{
-        try{
-            Optional<Estudiante> estudiante = estudianteRepository.findByGenero(genero);
-            return estudiante.get();
-            //VER SI HAY QUE RETORNARLO CON DTO
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
+    public EstudianteDTO findByGenero(String genero) throws Exception {
+        try {
+            Optional<Estudiante> estudianteOpt = estudianteRepository.findByGenero(genero);
+            if (estudianteOpt.isPresent()) {
+                return new EstudianteDTO(estudianteOpt.get());
+            } else {
+                throw new Exception("Estudiante no encontrado para el género especificado");
+            }
+        } catch (Exception e) {
+            throw new Exception(e.getMessage(), e);
         }
     }
 
-    @Override
-    public List<?> findAll() throws Exception {
+
+    public List<EstudianteDTO> findAll() throws Exception {
         return null;
     }
 
-    @Override
-    public Estudiante update(Long id, Estudiante entity) throws Exception {
+    public EstudianteDTO update(Long id, EstudianteDTO entity) throws Exception {
         return null;
     }
 
-    @Override
     public boolean delete(Long id) throws Exception {
         return false;
     }
