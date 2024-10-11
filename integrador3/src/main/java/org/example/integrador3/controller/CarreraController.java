@@ -14,7 +14,6 @@ public class CarreraController{
     @Autowired
     private CarreraServicio carreraServicio;
 
-
     @GetMapping("")
     public ResponseEntity<?> getAllCarreras() {
         try {
@@ -24,8 +23,6 @@ public class CarreraController{
         }
     }
 
-
-
     @PostMapping("")
     public ResponseEntity<?> save(@RequestBody Carrera carrera){
         try{
@@ -34,10 +31,6 @@ public class CarreraController{
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
         }
     }
-
-
-
-
 
     //f) recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
 
@@ -51,8 +44,8 @@ public class CarreraController{
         }
 
     }
-
-    @GetMapping("/{id}")
+    // NO ANDA REVISARRRRRRRRRRRR
+    @GetMapping("/ID/{id}")
     public ResponseEntity findById(Long id){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(carreraServicio.findById(id));

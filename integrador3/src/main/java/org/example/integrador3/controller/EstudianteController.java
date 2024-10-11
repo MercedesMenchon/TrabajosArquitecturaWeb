@@ -39,7 +39,7 @@ public class EstudianteController {
     }
 
     //d) recuperar un estudiante, en base a su número de libreta universitaria.
-    @GetMapping("/{LU}")
+    @GetMapping("/LU/{LU}")
     public ResponseEntity<?>getEstudiantePorLU(@PathVariable Long LU){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(estudianteServicio.findById(LU));
@@ -49,17 +49,7 @@ public class EstudianteController {
         }
     }
 
-    //e) recuperar todos los estudiantes, en base a su género.
-//    @GetMapping("/{genero}")
-//    public ResponseEntity<?>getEstudiantesPorGenero(@PathVariable String genero){
-//        try{
-//            return ResponseEntity.status(HttpStatus.OK).body(estudianteServicio.findByGenero(genero));
-//        }catch (Exception e){
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. No se encuentra el objeto buscado" +
-//                    ".\"}");
-//        }
-//    }
-    @GetMapping("/{genero}")
+    @GetMapping("genero/{genero}")
     public ResponseEntity<?>getEstudiantesPorGenero(@PathVariable String genero){
         try{
             List<EstudianteDTO> estudiantes = estudianteServicio.findByGenero(genero);

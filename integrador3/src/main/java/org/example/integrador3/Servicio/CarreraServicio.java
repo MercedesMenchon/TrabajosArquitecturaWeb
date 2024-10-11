@@ -2,6 +2,7 @@ package org.example.integrador3.Servicio;
 
 import jakarta.transaction.Transactional;
 
+import org.example.integrador3.DTO.CarreraConInscriptosDTO;
 import org.example.integrador3.DTO.CarreraDTO;
 import org.example.integrador3.DTO.EstudianteDTO;
 import org.example.integrador3.model.Carrera;
@@ -20,10 +21,6 @@ public class CarreraServicio  {
     @Autowired
     private CarreraRepository carreraRepository;
 
-
-
-
-
     @Transactional
     public List<CarreraDTO> findAll() throws Exception {
         var resultado = carreraRepository.findAll();
@@ -38,42 +35,34 @@ public class CarreraServicio  {
 
     //f) recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
 
-    public List<CarreraDTO> getCarrerasConEstudiantesInscriptosOrdenadasPorCantidad() throws Exception {
+    public List<CarreraConInscriptosDTO> getCarrerasConEstudiantesInscriptosOrdenadasPorCantidad() throws Exception {
 
         List<Object[]> results = carreraRepository.getCarrerasConEstudiantesInscriptosOrdenadasPorCantidad();
-
-        System.out.println("++++++++++++++++++" + results);
-        List<CarreraDTO> carrerasDTO = new ArrayList<>();
+        List<CarreraConInscriptosDTO> listaCarrerasDTO = new ArrayList<>();
 
         for (Object[] result : results) {
-            System.out.println("ENTRE 222222222222222222222222222222222222");
             Carrera carrera = (Carrera) result[0];
             Long cantidadInscriptos = (Long) result[1];
 
-            CarreraDTO carreraDTO = new CarreraDTO(carrera.getNombreCarrera(), carrera.getIdCarrera(),cantidadInscriptos);
-            carrerasDTO.add(carreraDTO);
+            CarreraConInscriptosDTO carreraDTO = new CarreraConInscriptosDTO(carrera.getNombreCarrera(), carrera.getIdCarrera(),cantidadInscriptos);
+            listaCarrerasDTO.add(carreraDTO);
         }
         try {
-            return carrerasDTO;
+            return listaCarrerasDTO;
         }
         catch (Exception e){
-            System.out.println("ENTRE 888888888888888888888888888888888888888");
             throw new Exception(e.getMessage());
         }
     }
 
-
-
     public CarreraDTO findById(Long id) throws Exception {
-        Carrera resultado = carreraRepository.findCarreraById(id);
-        CarreraDTO carreraDTO = null;
-        if (resultado != null){
-            carreraDTO = new CarreraDTO(resultado.getIdCarrera(),resultado.getNombreCarrera());
+        Carrera carrera = carreraRepository.findCarreraById(id);
+        if (carrera != null) {
+            return new CarreraDTO(carrera.getIdCarrera(), carrera.getNombreCarrera());
+        } else {
+            throw new Exception("No se encontró la carrera con el ID: " + id);
         }
-        return carreraDTO;
     }
-
-
 
     public Carrera save(Carrera carrera) throws Exception {
         try{
@@ -82,9 +71,5 @@ public class CarreraServicio  {
             throw new Exception(e.getMessage());
         }
     }
-
-
-
-
 
 }

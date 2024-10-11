@@ -18,6 +18,6 @@ public interface CarreraRepository extends JpaRepository<Carrera, Long> {
     public List<Object[]> getCarrerasConEstudiantesInscriptosOrdenadasPorCantidad();
 
 
-    @Query("SELECT c FROM Carrera c WHERE  c.idCarrera = :idCarrera")
+    @Query("SELECT c FROM Carrera c WHERE c.idCarrera = :idCarrera")
     public Carrera findCarreraById(Long idCarrera);
         }
