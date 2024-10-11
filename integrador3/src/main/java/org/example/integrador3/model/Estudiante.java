@@ -30,7 +30,7 @@ public class Estudiante implements Serializable {
 
     // La libreta Universitria no se generaria automaticamente tmb?
     public Estudiante(String nombre, String apellido, Long edad, String genero, Long DNI, String ciudadResidencia, Long LU) {
-        this.LU=LU;
+        this.LU= LU;
         this.nombre = nombre;
         this.apellido = apellido;
         this.edad = edad;

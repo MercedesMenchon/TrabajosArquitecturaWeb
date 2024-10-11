@@ -1,11 +1,14 @@
 package org.example.integrador3.controller;
 
+import org.example.integrador3.DTO.EstudianteDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.example.integrador3.Servicio.EstudianteServicio;
 import org.example.integrador3.model.Estudiante;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/estudiante")
@@ -47,10 +50,20 @@ public class EstudianteController {
     }
 
     //e) recuperar todos los estudiantes, en base a su género.
+//    @GetMapping("/{genero}")
+//    public ResponseEntity<?>getEstudiantesPorGenero(@PathVariable String genero){
+//        try{
+//            return ResponseEntity.status(HttpStatus.OK).body(estudianteServicio.findByGenero(genero));
+//        }catch (Exception e){
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. No se encuentra el objeto buscado" +
+//                    ".\"}");
+//        }
+//    }
     @GetMapping("/{genero}")
     public ResponseEntity<?>getEstudiantesPorGenero(@PathVariable String genero){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(estudianteServicio.findByGenero(genero));
+            List<EstudianteDTO> estudiantes = estudianteServicio.findByGenero(genero);
+            return ResponseEntity.status(HttpStatus.OK).body(estudiantes);
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. No se encuentra el objeto buscado" +
                     ".\"}");

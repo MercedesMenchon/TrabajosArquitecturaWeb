@@ -61,19 +61,30 @@ public class EstudianteServicio{
     }
 
     //e) recuperar todos los estudiantes, en base a su género.
-    public EstudianteDTO findByGenero(String genero) throws Exception {
+//    public EstudianteDTO findByGenero(String genero) throws Exception {
+//        try {
+//            Optional<Estudiante> estudianteOpt = estudianteRepository.findByGenero(genero);
+//            if (estudianteOpt.isPresent()) {
+//                return new EstudianteDTO(estudianteOpt.get());
+//            } else {
+//                throw new Exception("Estudiante no encontrado para el género especificado");
+//            }
+//        } catch (Exception e) {
+//            throw new Exception(e.getMessage(), e);
+//        }
+//    }
+
+    /*
+    * cambie para que traiga una lista y no a un estudiante*/
+
+    public List<EstudianteDTO> findByGenero(String genero) throws Exception {
         try {
-            Optional<Estudiante> estudianteOpt = estudianteRepository.findByGenero(genero);
-            if (estudianteOpt.isPresent()) {
-                return new EstudianteDTO(estudianteOpt.get());
-            } else {
-                throw new Exception("Estudiante no encontrado para el género especificado");
-            }
+            List<Estudiante> estudiantes = estudianteRepository.findByGenero(genero);
+            return estudiantes.stream().map(EstudianteDTO::new).collect(Collectors.toList());
         } catch (Exception e) {
             throw new Exception(e.getMessage(), e);
         }
     }
-
 
     public List<EstudianteDTO> findAll() throws Exception {
         return null;

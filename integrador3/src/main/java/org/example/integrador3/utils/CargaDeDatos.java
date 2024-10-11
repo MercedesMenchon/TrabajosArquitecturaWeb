@@ -57,22 +57,25 @@ public class CargaDeDatos implements CommandLineRunner {
     }
 
     public void cargarDesdeCSV() {
-        try {
+                try {
             // Carga estudiantes
             log.info("Cargando estudiantes...");
             for (CSVRecord row : getData("estudiantes.csv")) {
-                if (row.size() >= 7) {
+               if (row.size() >= 7) {
+
                     try {
-                        Long LU = parseLong(row.get("LU"), "LU");
-                        Long DNI = parseLong(row.get("DNI"), "DNI");
+                        Long LU = parseLong(row.get("LU"),"LU");
+                        System.out.println("estoy aca*************//////////////////");
+                        System.out.println(LU);
+                        Long DNI = parseLong(row.get("DNI"),"DNI");
                         String nombre = row.get("Nombre").trim();
                         String apellido = row.get("Apellido").trim();
-                        Long edad = parseLong(row.get("Edad"), "Edad");
+                        Long edad = parseLong(row.get("Edad"),"Edad");
                         String genero = row.get("Genero").trim();
                         String ciudad = row.get("CiudadResidencia").trim();
 
                         if (!nombre.isEmpty() && !apellido.isEmpty() && DNI > 0 && !ciudad.isEmpty()) {
-                            Estudiante estudiante = new Estudiante(nombre, apellido, edad, genero, DNI, ciudad, LU);
+                            Estudiante estudiante = new Estudiante(nombre,apellido,edad,genero,DNI,ciudad,LU);
                             estudianteRepository.save(estudiante);
                             log.debug("Estudiante guardado: {}", estudiante);
                         }
