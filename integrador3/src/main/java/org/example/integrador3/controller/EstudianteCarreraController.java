@@ -1,6 +1,6 @@
 package org.example.integrador3.controller;
 
-import org.example.integrador3.Servicio.CarreraServicio;
+import org.example.integrador3.servicio.CarreraServicio;
 import org.example.integrador3.Servicio.EstudianteCarreraServicio;
 import org.example.integrador3.Servicio.EstudianteServicio;
 import org.example.integrador3.model.Carrera;
@@ -21,7 +21,6 @@ public class EstudianteCarreraController {
     private EstudianteCarreraServicio estudianteCarreraServicio;
 
 
-    // VERRRRRRR NO FUNCIONA
 
     @PostMapping("")
     public ResponseEntity<?> save(@RequestBody Map<String, Long> request) {
@@ -29,6 +28,9 @@ public class EstudianteCarreraController {
             Long idEstudiante = request.get("idEstudiante");
             Long idCarrera = request.get("idCarrera");
             // Verifica si los valores no son nulos o están correctamente recibidos
+            System.out.println(idEstudiante);
+            System.out.println(idCarrera);
+            System.out.println("*******************//////////////////////////////////************************");
             if (idEstudiante == null || idCarrera == null) {
                 throw new IllegalArgumentException("idEstudiante o idCarrera no proporcionados.");
             }

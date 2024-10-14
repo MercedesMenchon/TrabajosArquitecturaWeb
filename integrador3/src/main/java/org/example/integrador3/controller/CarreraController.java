@@ -1,6 +1,6 @@
 package org.example.integrador3.controller;
 
-import org.example.integrador3.Servicio.CarreraServicio;
+import org.example.integrador3.servicio.CarreraServicio;
 import org.example.integrador3.model.Carrera;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,13 +44,20 @@ public class CarreraController{
         }
 
     }
-    // NO ANDA REVISARRRRRRRRRRRR
-//   /* @GetMapping("/ID/{id}")
-//    public ResponseEntity findById(Long id){
-//        try{
-//            return ResponseEntity.status(HttpStatus.OK).body(carreraServicio.findById(id));
-//        }catch (Exception e){
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. No se encontró la carrera.\"}");
-//        }
-//    }*/
+//g) generar un reporte de las carreras, que para cada carrera incluya información de los
+//inscriptos y egresados por año. Se deben ordenar las carreras alfabéticamente, y
+//presentar los años de manera cronológica.
+
+    @GetMapping("/reporte")
+    public ResponseEntity<?> getCarrerasReportes() {
+        try{
+            System.out.println("entrando a try*/*///////////////////////");
+            return ResponseEntity.status(HttpStatus.OK).body(carreraServicio.getReporte());
+
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
+
+        }
+    }
+
 }

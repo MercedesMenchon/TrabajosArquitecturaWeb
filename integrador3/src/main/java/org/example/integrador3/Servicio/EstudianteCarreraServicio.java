@@ -19,7 +19,9 @@ import java.util.Objects;
 public class EstudianteCarreraServicio  {
     @Autowired
     private EstudianteCarreraRepository estudianteCarreraRepository;
+    @Autowired
     private EstudianteRepository estudianteRepository;
+    @Autowired
     private CarreraRepository carreraRepository;
     public EstudianteCarrera save(Long idEstudiante, Long idCarrera) throws Exception {
         try {
@@ -29,10 +31,13 @@ public class EstudianteCarreraServicio  {
             Carrera carrera = carreraRepository.findById(idCarrera)
                     .orElseThrow(() -> new Exception("Carrera no encontrada"));
 
-            // Crear la relación EstudianteCarrera
+            EstudianteCarrera existingRelation = estudianteCarreraRepository.findByCarreraIdAndEstudianteId(idCarrera, idEstudiante);
+            if (existingRelation != null) {
+                throw new Exception("El estudiante ya está matriculado en esta carrera.");
+            }
+
             EstudianteCarrera estudianteCarrera = new EstudianteCarrera(estudiante, carrera);
 
-            // Guardar en el repositorio
             return estudianteCarreraRepository.save(estudianteCarrera);
         } catch (Exception e) {
             throw new Exception("Error al guardar la relación Estudiante-Carrera: " + e.getMessage());

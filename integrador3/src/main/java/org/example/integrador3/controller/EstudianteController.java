@@ -50,7 +50,7 @@ public class EstudianteController {
     }
 
 //    e) recuperar todos los estudiantes, en base a su género.
-    @GetMapping("genero/{genero}")
+    @GetMapping("/genero/{genero}")
     public ResponseEntity<?>getEstudiantesPorGenero(@PathVariable String genero){
         try{
             List<EstudianteDTO> estudiantes = estudianteServicio.findByGenero(genero);
@@ -62,10 +62,10 @@ public class EstudianteController {
     }
 
 //    g) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
-    //NO ANDA
-    @GetMapping("carrera-ciudad/{carrera}/{ciudad}")
+
+    @GetMapping("/carrera-ciudad/{carrera}/{ciudad}")
     public ResponseEntity<?> findEstudiantesPorCarreraYCiudad(
-            @PathVariable("idCarrera") Long idCarrera,
+            @PathVariable("carrera") Long idCarrera,
             @PathVariable("ciudad") String ciudad){
         try{
             List<EstudianteDTO> estudiantes = estudianteServicio.findEstudiantesPorCarreraYCiudad(idCarrera,ciudad);

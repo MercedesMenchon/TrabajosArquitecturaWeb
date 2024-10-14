@@ -15,9 +15,9 @@ import java.util.List;
 
 public interface EstudianteCarreraRepository extends JpaRepository<EstudianteCarrera, Long> {
 
-    @Query("SELECT ec FROM EstudianteCarrera ec WHERE ec.id = :idEC")
-    public  EstudianteCarrera findByCarreraIdAndEstudianteId(@Param("id") Long idEC);
 
+    @Query("SELECT ec FROM EstudianteCarrera ec WHERE ec.estudiante.id = :idEstudiante AND ec.carrera.idCarrera = :idCarrera")
+    EstudianteCarrera findByCarreraIdAndEstudianteId(@Param("idCarrera") Long idCarrera, @Param("idEstudiante") Long idEstudiante);
 
 
     EstudianteCarrera save(EstudianteCarrera estudianteCarrera);

@@ -1,10 +1,11 @@
-package org.example.integrador3.Servicio;
+package org.example.integrador3.servicio;
 
 import jakarta.transaction.Transactional;
 
 import org.example.integrador3.DTO.CarreraConInscriptosDTO;
 import org.example.integrador3.DTO.CarreraDTO;
 import org.example.integrador3.DTO.EstudianteDTO;
+import org.example.integrador3.DTO.ReporteDTO;
 import org.example.integrador3.model.Carrera;
 import org.example.integrador3.repository.CarreraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +68,14 @@ public class CarreraServicio  {
     public Carrera save(Carrera carrera) throws Exception {
         try{
           return carreraRepository.save(carrera);
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    public List <ReporteDTO> getReporte() throws Exception{
+        try {
+            return carreraRepository.getReporte();
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
