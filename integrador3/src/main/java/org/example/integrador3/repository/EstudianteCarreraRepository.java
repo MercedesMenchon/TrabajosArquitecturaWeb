@@ -7,6 +7,7 @@ import org.example.integrador3.model.EstudianteCarrera;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -14,11 +15,10 @@ import java.util.List;
 
 public interface EstudianteCarreraRepository extends JpaRepository<EstudianteCarrera, Long> {
 
-    @Query("SELECT ec FROM EstudianteCarrera ec where ec.carrera = :carrera")
-    public List<Estudiante> findAllBySurname(Carrera carrera);
+    @Query("SELECT ec FROM EstudianteCarrera ec WHERE ec.id = :idEC")
+    public  EstudianteCarrera findByCarreraIdAndEstudianteId(@Param("id") Long idEC);
 
-    @Query("SELECT e FROM Estudiante e where e.nombre = :nombre")
-    public List<Estudiante> findAllByName(String nombre);
+
 
     EstudianteCarrera save(EstudianteCarrera estudianteCarrera);
 

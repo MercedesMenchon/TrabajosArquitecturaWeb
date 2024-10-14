@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
-@RequestMapping("/estudianteCarrera")
+@RequestMapping("estudianteCarrera")
 public class EstudianteCarreraController {
 
     @Autowired
@@ -18,13 +20,26 @@ public class EstudianteCarreraController {
 
 
     //b) matricular un estudiante en una carrera
+
     @PostMapping("")
-    public ResponseEntity<?> save(@RequestBody Estudiante estudiante, Carrera carrera){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(estudianteCarreraServicio.save(estudiante, carrera));
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+    public ResponseEntity<?> save(@RequestBody Map<String, Long> request) {
+        try {
+            Long idEstudiante = request.get("idEstudiante");
+            Long idCarrera = request.get("idCarrera");
+            // Verifica si los valores no son nulos o están correctamente recibidos
+            if (idEstudiante == null || idCarrera == null) {
+                throw new IllegalArgumentException("idEstudiante o idCarrera no proporcionados.");
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(estudianteCarreraServicio.save(idEstudiante, idCarrera));
+        } catch (Exception e) {
+            // Aquí registramos el error para obtener más detalles.
+            e.printStackTrace(); // Para ver la traza del error en la consola/logs
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente. Detalle: " + e.getMessage() + "\"}");
         }
     }
+
+
+
+
 
 }

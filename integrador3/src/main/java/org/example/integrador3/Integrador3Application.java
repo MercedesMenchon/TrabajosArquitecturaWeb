@@ -19,7 +19,6 @@ public class Integrador3Application {
     }
   @PostConstruct
    public void init() throws IOException {
-
        cargaDeDatos.cargarDesdeCSV();
     }
 

@@ -44,12 +44,11 @@ public class CargaDeDatos {
     // Método para cargar datos desde un archivo CSV
     public void cargarEstudiantesCSV() {
         try {
-            // Obtén el archivo CSV utilizando ResourceUtils.getFile()
+
             File archivoCSV = ResourceUtils.getFile("classpath:dataSets/estudiantes.csv");
             try (FileReader reader = new FileReader(archivoCSV);
                  CSVParser csvParser = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(reader)) {
 
-                // Cargar estudiantes desde el archivo CSV
                 log.info("Cargando estudiantes...");
                 for (CSVRecord row : csvParser) {
                     if (row.size() >= 7) {
@@ -62,11 +61,9 @@ public class CargaDeDatos {
                             String genero = row.get(5);
                             String ciudad = row.get(6);
 
-                            // Valida y guarda el estudiante
                             if (!nombre.isEmpty() && !apellido.isEmpty() && DNI > 0 && !ciudad.isEmpty()) {
                                 Estudiante estudiante = new Estudiante(nombre, apellido, edad, genero, DNI, ciudad, LU);
                                 estudianteRepository.save(estudiante);
-                                System.out.println("ESTOY CARGAND ESTUDIANTEEEEEEEEES" );
                                 log.debug("Estudiante guardado: {}", estudiante);
                             }
                         } catch (NumberFormatException e) {
@@ -86,7 +83,7 @@ public class CargaDeDatos {
 
     public void cargarCarrerasCSV() {
         try {
-            // Obtén el archivo CSV utilizando ResourceUtils.getFile()
+
             File archivoCSV = ResourceUtils.getFile("classpath:dataSets/carreras.csv");
             try (FileReader reader = new FileReader(archivoCSV);
                  CSVParser csvParser = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(reader)) {
@@ -99,7 +96,6 @@ public class CargaDeDatos {
                             Long id = Long.parseLong(fila.get(0));
                             String nombre = fila.get(1);
 
-                            // Valida y guarda la carrera
                             if (id > 0 && !nombre.isEmpty()) {
                                 Carrera carrera = new Carrera(id, nombre);
                                 carreraRepository.save(carrera);
