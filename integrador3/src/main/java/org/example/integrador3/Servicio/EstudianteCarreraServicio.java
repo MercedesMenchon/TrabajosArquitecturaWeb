@@ -21,33 +21,43 @@ public class EstudianteCarreraServicio  {
     private EstudianteCarreraRepository estudianteCarreraRepository;
     private EstudianteRepository estudianteRepository;
     private CarreraRepository carreraRepository;
+    public EstudianteCarrera save(Long idEstudiante, Long idCarrera) throws Exception {
+        try {
+            // Buscar estudiante y carrera
+            Estudiante estudiante = estudianteRepository.findById(idEstudiante)
+                    .orElseThrow(() -> new Exception("Estudiante no encontrado"));
+            Carrera carrera = carreraRepository.findById(idCarrera)
+                    .orElseThrow(() -> new Exception("Carrera no encontrada"));
 
-    public EstudianteCarrera save(Long idEstudiante, Long idCarrera) throws Exception{
-        try{
-            Estudiante estudiante = estudianteRepository.getEstudiantePorLU(idEstudiante);
-            Carrera carrera = carreraRepository.findCarreraById(idCarrera);
-            if(estudiante != null && carrera != null){
-          //  EstudianteCarreraID idEC = new EstudianteCarreraID(estudiante.getLU(),carrera.getIdCarrera());
-//REVISAR QUE NO EXISTA NINGUN ESTUDIANTE MATRICULADO
+            // Crear la relación EstudianteCarrera
+            EstudianteCarrera estudianteCarrera = new EstudianteCarrera(estudiante, carrera);
 
-          //  EstudianteCarrera estudianteCarrera = EstudianteCarreraRepository.findByCarreraIdAndEstudianteId(idEC);
-                //if(controlar que no sea nulo) {
-                    EstudianteCarrera matriculacion = new EstudianteCarrera(estudiante, carrera);
-                    return estudianteCarreraRepository.save(matriculacion);
-                //}
-            }
-            System.out.println("No se matriculo porque el estudiante o la carrera no era nula");
-
-            return null;
-
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
+            // Guardar en el repositorio
+            return estudianteCarreraRepository.save(estudianteCarrera);
+        } catch (Exception e) {
+            throw new Exception("Error al guardar la relación Estudiante-Carrera: " + e.getMessage());
         }
     }
-
-
-
-
-
-
 }
+//    public EstudianteCarrera save(Long idEstudiante, Long idCarrera) throws Exception{
+//        try{
+//            Estudiante estudiante = estudianteRepository.getEstudiantePorLU(idEstudiante);
+//            Carrera carrera = carreraRepository.findCarreraById(idCarrera);
+//            if(estudiante != null && carrera != null){
+//          //  EstudianteCarreraID idEC = new EstudianteCarreraID(estudiante.getLU(),carrera.getIdCarrera());
+////REVISAR QUE NO EXISTA NINGUN ESTUDIANTE MATRICULADO
+//
+//          //  EstudianteCarrera estudianteCarrera = EstudianteCarreraRepository.findByCarreraIdAndEstudianteId(idEC);
+//                //if(controlar que no sea nulo) {
+//                    EstudianteCarrera matriculacion = new EstudianteCarrera(estudiante, carrera);
+//                    return estudianteCarreraRepository.save(matriculacion);
+//                //}
+//            }
+//            System.out.println("No se matriculo porque el estudiante o la carrera no era nula");
+//
+//            return null;
+//
+//        }catch (Exception e){
+//            throw new Exception(e.getMessage());
+//        }
+//    }

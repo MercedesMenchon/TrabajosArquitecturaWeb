@@ -45,12 +45,12 @@ public class CarreraController{
 
     }
     // NO ANDA REVISARRRRRRRRRRRR
-   /* @GetMapping("/ID/{id}")
-    public ResponseEntity findById(Long id){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(carreraServicio.findById(id));
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. No se encontró la carrera.\"}");
-        }
-    }*/
+//   /* @GetMapping("/ID/{id}")
+//    public ResponseEntity findById(Long id){
+//        try{
+//            return ResponseEntity.status(HttpStatus.OK).body(carreraServicio.findById(id));
+//        }catch (Exception e){
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. No se encontró la carrera.\"}");
+//        }
+//    }*/
 }

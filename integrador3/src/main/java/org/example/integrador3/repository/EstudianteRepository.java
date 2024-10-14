@@ -16,5 +16,9 @@ public interface EstudianteRepository extends JpaRepository<Estudiante, Long> {
     @Query("SELECT e FROM Estudiante e WHERE e.LU =:lu")
     public Estudiante getEstudiantePorLU(Long lu);
 
-
+    @Query("SELECT e FROM Estudiante e " +
+            "JOIN EstudianteCarrera ec ON e.LU = ec.estudiante.LU " +
+            "WHERE ec.carrera.idCarrera = :idCarrera " +
+            "AND e.ciudadResidencia = :ciudadResidencia")
+    List<Estudiante> findEstudiantesPorCarreraYCiudad(Long idCarrera, String ciudadResidencia);
 }
