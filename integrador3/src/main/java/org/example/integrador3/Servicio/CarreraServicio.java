@@ -4,7 +4,6 @@ import jakarta.transaction.Transactional;
 
 import org.example.integrador3.DTO.CarreraConInscriptosDTO;
 import org.example.integrador3.DTO.CarreraDTO;
-import org.example.integrador3.DTO.EstudianteDTO;
 import org.example.integrador3.DTO.ReporteDTO;
 import org.example.integrador3.model.Carrera;
 import org.example.integrador3.repository.CarreraRepository;
@@ -73,12 +72,12 @@ public class CarreraServicio  {
         }
     }
 
-    public List <ReporteDTO> getReporte() throws Exception{
+
+    public List<ReporteDTO> getReporte() throws Exception {
         try {
             return carreraRepository.getReporte();
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
+        } catch (Exception e) {
+          throw new Exception("Error al obtener el reporte: " + e.getMessage());
         }
     }
-
 }

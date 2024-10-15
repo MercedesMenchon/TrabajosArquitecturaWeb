@@ -51,10 +51,10 @@ public class CarreraController{
     @GetMapping("/reporte")
     public ResponseEntity<?> getCarrerasReportes() {
         try{
-            System.out.println("entrando a try*/*///////////////////////");
             return ResponseEntity.status(HttpStatus.OK).body(carreraServicio.getReporte());
 
         }catch (Exception e){
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
 
         }

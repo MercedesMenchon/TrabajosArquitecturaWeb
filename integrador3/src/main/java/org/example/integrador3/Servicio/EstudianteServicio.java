@@ -19,7 +19,13 @@ public class EstudianteServicio{
     private EstudianteRepository estudianteRepository;
 
     //a) dar de alta un estudiante
-
+    public Estudiante save(Estudiante estudiante) throws Exception {
+        try{
+            return estudianteRepository.save(estudiante);
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
 
     //c) recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple.
     @Transactional
@@ -52,13 +58,7 @@ public class EstudianteServicio{
     }
 
 
-    public Estudiante save(Estudiante estudiante) throws Exception {
-        try{
-            return estudianteRepository.save(estudiante);
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
-        }
-    }
+
 
     //e) recuperar todos los estudiantes, en base a su género.
     public List<EstudianteDTO> findByGenero(String genero) throws Exception {

@@ -117,7 +117,7 @@ public class CargaDeDatos {
 
     public void cargarEstudianteCarreraCSV() {
         try {
-            // Obtén el archivo CSV utilizando ResourceUtils.getFile()
+            // Obtenemos el archivo CSV utilizando ResourceUtils.getFile()
             File archivoCSV = ResourceUtils.getFile("classpath:dataSets/estudianteCarrera.csv");
             try (FileReader reader = new FileReader(archivoCSV);
                  CSVParser csvParser = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(reader)) {
@@ -133,13 +133,13 @@ public class CargaDeDatos {
                             String fechaFinStr = row.get(3); // Fecha de fin
                             LocalDate fechaFin = fechaFinStr.isEmpty() ? null : LocalDate.parse(fechaFinStr);
 
-                            // Obtener el estudiante y la carrera correspondientes
+                            // Obtenemos el estudiante y la carrera correspondientes
                             Estudiante estudiante = estudianteRepository.getEstudiantePorLU(LU);
                             Carrera carrera = carreraRepository.findCarreraById(idCarrera);
 
-                            // Validar que ambos existan
+                            // Validamos que ambos existan
                             if (estudiante != null && carrera != null) {
-                                // Crear la relación estudiante-carrera
+                                // Creamos la relación estudiante-carrera
                                 EstudianteCarrera estudianteCarrera = new EstudianteCarrera(estudiante, carrera, fechaInicio);
                                 estudianteCarrera.setFechaFin(fechaFin);
                                 estudianteCarreraRepository.save(estudianteCarrera);

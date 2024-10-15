@@ -13,10 +13,12 @@ public class Integrador3Application {
 
     @Autowired
     private CargaDeDatos cargaDeDatos;
-    public static void main(String[] args)
-    {
+
+
+    public static void main(String[] args) {
         SpringApplication.run(Integrador3Application.class, args);
     }
+
   @PostConstruct
    public void init() throws IOException {
        cargaDeDatos.cargarDesdeCSV();
