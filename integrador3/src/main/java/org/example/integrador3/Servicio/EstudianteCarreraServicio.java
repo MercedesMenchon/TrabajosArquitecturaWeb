@@ -1,6 +1,10 @@
-package org.example.integrador3.Servicio;
+package org.example.integrador3.servicio;
 
 
+import jakarta.transaction.Transactional;
+import org.example.integrador3.DTO.CarreraDTO;
+import org.example.integrador3.DTO.EstudianteCarreraDTO;
+import org.example.integrador3.DTO.EstudianteDTO;
 import org.example.integrador3.model.Carrera;
 import org.example.integrador3.model.Estudiante;
 import org.example.integrador3.model.EstudianteCarrera;
@@ -11,10 +15,11 @@ import org.example.integrador3.repository.EstudianteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 
-// CAMBIAR LOS RETORNOS A DTO
 @Service
 public class EstudianteCarreraServicio  {
     @Autowired
@@ -42,6 +47,20 @@ public class EstudianteCarreraServicio  {
             return estudianteCarreraRepository.save(estudianteCarrera);
         } catch (Exception e) {
             throw new Exception("Error al guardar la relación Estudiante-Carrera: " + e.getMessage());
+        }
+    }
+
+
+    @Transactional
+    public List<EstudianteCarreraDTO> findAll()throws Exception{
+
+        var resultado = estudianteCarreraRepository.findAll();
+        try{
+            return resultado.stream().map(estudianteCarrera->new EstudianteCarreraDTO(new EstudianteDTO(estudianteCarrera.getEstudiante()),new CarreraDTO(estudianteCarrera.getCarrera()),estudianteCarrera.getFechaInicio(), estudianteCarrera.getFechaFin())).collect(Collectors.toList());
+        }
+
+        catch (Exception e){
+            throw new Exception(e.getMessage());
         }
     }
 }

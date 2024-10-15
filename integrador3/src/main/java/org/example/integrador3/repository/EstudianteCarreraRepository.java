@@ -16,14 +16,14 @@ import java.util.List;
 public interface EstudianteCarreraRepository extends JpaRepository<EstudianteCarrera, Long> {
 
 
-    @Query("SELECT ec FROM EstudianteCarrera ec WHERE ec.estudiante.id = :idEstudiante AND ec.carrera.idCarrera = :idCarrera")
+    @Query("SELECT ec FROM EstudianteCarrera ec WHERE ec.estudiante.LU= :idEstudiante AND ec.carrera.idCarrera = :idCarrera")
     EstudianteCarrera findByCarreraIdAndEstudianteId(@Param("idCarrera") Long idCarrera, @Param("idEstudiante") Long idEstudiante);
 
-
-    EstudianteCarrera save(EstudianteCarrera estudianteCarrera);
-
-//    public void save(Estudiante estudiante, Carrera carrera, LocalDate fechaInicio, LocalDate fechaFin);
+  //  EstudianteCarrera save(EstudianteCarrera estudianteCarrera);
 
 
+
+@Query ("SELECT ec FROM EstudianteCarrera ec")
+    public List<EstudianteCarrera> findAll();
 
 }

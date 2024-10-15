@@ -1,4 +1,4 @@
-package org.example.integrador3.Servicio;
+package org.example.integrador3.servicio;
 
 import jakarta.transaction.Transactional;
 import org.example.integrador3.DTO.EstudianteDTO;

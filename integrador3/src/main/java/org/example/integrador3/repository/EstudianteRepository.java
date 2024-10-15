@@ -10,7 +10,7 @@ public interface EstudianteRepository extends JpaRepository<Estudiante, Long> {
     @Query("SELECT e FROM Estudiante e WHERE e.genero =:genero")
     List<Estudiante> findByGenero(String genero);
 
-    @Query("SELECT e FROM Estudiante e ORDER BY e.apellido ASC")
+    @Query("SELECT e FROM Estudiante e ORDER BY e.apellido ASC, e.nombre ASC")
     public List<Estudiante> findAllEstudiantesDtoOrdenadoPorApellido();
 
     @Query("SELECT e FROM Estudiante e WHERE e.LU =:lu")

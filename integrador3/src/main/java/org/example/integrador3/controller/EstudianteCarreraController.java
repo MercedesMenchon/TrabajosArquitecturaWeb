@@ -1,7 +1,7 @@
 package org.example.integrador3.controller;
 
 
-import org.example.integrador3.Servicio.EstudianteCarreraServicio;
+import org.example.integrador3.servicio.EstudianteCarreraServicio;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ public class EstudianteCarreraController {
     private EstudianteCarreraServicio estudianteCarreraServicio;
 
 
-
+//b) matricular un estudiante en una carrera
     @PostMapping("")
     public ResponseEntity<?> save(@RequestBody Map<String, Long> request) {
         try {
@@ -32,5 +32,19 @@ public class EstudianteCarreraController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente. Detalle: " + e.getMessage() + "\"}");
         }
     }
+
+
+
+    @GetMapping("")
+    public ResponseEntity<?> findAll() {
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(estudianteCarreraServicio.findAll());
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
+        }
+
+    }
+
+
 }
 
