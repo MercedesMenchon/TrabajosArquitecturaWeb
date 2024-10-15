@@ -81,13 +81,13 @@ public class EstudianteDTO {
     @Override
     public String toString() {
         return "EstudianteDTO{" +
-                "ciudadResidencia='" + ciudadResidencia + '\'' +
-                ", genero='" + genero + '\'' +
-                ", LU=" + LU +
-                ", DNI=" + DNI +
-                ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", edad=" + edad +
+                "ciudadResidencia='" + getCiudadResidencia() + '\'' +
+                ", genero='" + getGenero() + '\'' +
+                ", LU=" + getLU() +
+                ", DNI=" + getDNI() +
+                ", nombre='" + getNombre() + '\'' +
+                ", apellido='" + getApellido() + '\'' +
+                ", edad=" + getEdad() +
                 '}';
     }
 }

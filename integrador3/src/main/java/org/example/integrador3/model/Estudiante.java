@@ -28,7 +28,6 @@ public class Estudiante implements Serializable {
     private List <EstudianteCarrera> carreras;
 
 
-    // La libreta Universitria no se generaria automaticamente tmb?
     public Estudiante(String nombre, String apellido, Long edad, String genero, Long DNI, String ciudadResidencia, Long LU) {
         this.LU= LU;
         this.nombre = nombre;
@@ -51,61 +50,39 @@ public class Estudiante implements Serializable {
         return apellido;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
 
     public Long getLU() {
         return LU;
     }
 
-    public void setLU(long LU) {
-        this.LU = LU;
-    }
+
 
     public String getCiudadResidencia() {
         return ciudadResidencia;
     }
 
-    public void setCiudadResidencia(String ciudadResidencia) {
-        this.ciudadResidencia = ciudadResidencia;
-    }
+
 
     public Long getDNI() {
         return DNI;
     }
 
-    public void setDNI(Long DNI) {
-        this.DNI = DNI;
-    }
+
 
     public String getGenero() {
         return genero;
     }
 
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
 
     public Long getEdad() {
         return edad;
     }
 
-    public void setEdad(Long edad) {
-        this.edad = edad;
-    }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void addCarrera(EstudianteCarrera carrera) {
-        this.carreras.add(carrera);
-    }
 
     @Override
     public String toString() {

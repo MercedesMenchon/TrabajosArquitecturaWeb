@@ -37,10 +37,10 @@ public class ReporteDTO {
     @Override
     public String toString() {
         return "ReporteDTO{" +
-                "nombreCarrera='" + nombreCarrera + '\'' +
-                ", anio=" + anio +
-                ", cantidadInscriptos=" + cantidadInscriptos +
-                ", cantidadEgresados=" + cantidadEgresados +
+                "nombreCarrera='" + getNombreCarrera() + '\'' +
+                ", anio=" + getAnio() +
+                ", cantidadInscriptos=" + getCantidadInscriptos() +
+                ", cantidadEgresados=" + getCantidadEgresados() +
                 '}';
     }
 }

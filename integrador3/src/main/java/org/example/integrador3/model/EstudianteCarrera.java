@@ -65,18 +65,6 @@ public class EstudianteCarrera implements Serializable {
         return fechaInicio;
     }
 
-    public void setFechaInicio(LocalDate fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public EstudianteCarreraID getId() {
-        return id;
-    }
-
-    public void setId(EstudianteCarreraID id) {
-        this.id = id;
-    }
-
     public LocalDate getFechaFin() {
         return fechaFin;
     }

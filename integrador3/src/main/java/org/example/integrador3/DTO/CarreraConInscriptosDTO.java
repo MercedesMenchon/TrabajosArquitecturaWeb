@@ -8,9 +8,6 @@ public class CarreraConInscriptosDTO extends CarreraDTO{
         super(idCarrera, nombreCarrera);
         this.cantidad= cantidad;
     }
-    public Long getCantidad() {
-        return cantidad;
-    }
 
     @Override
     public String toString() {

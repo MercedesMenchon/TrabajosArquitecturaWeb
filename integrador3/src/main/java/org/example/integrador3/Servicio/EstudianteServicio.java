@@ -12,7 +12,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 
-// CAMBIAR LOS RETORNOS A DTO
 @Service
 public class EstudianteServicio{
     @Autowired
@@ -77,18 +76,6 @@ public class EstudianteServicio{
         } catch (Exception e) {
             throw new Exception(e.getMessage(), e);
         }
-    }
-
-    public List<EstudianteDTO> findAll() throws Exception {
-        return null;
-    }
-
-    public EstudianteDTO update(Long id, EstudianteDTO entity) throws Exception {
-        return null;
-    }
-
-    public boolean delete(Long id) throws Exception {
-        return false;
     }
 
 

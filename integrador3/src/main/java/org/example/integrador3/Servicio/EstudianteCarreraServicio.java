@@ -31,7 +31,6 @@ public class EstudianteCarreraServicio  {
 
     public EstudianteCarrera save(Long idEstudiante, Long idCarrera) throws Exception {
         try {
-            // Buscar estudiante y carrera
             Estudiante estudiante = estudianteRepository.findById(idEstudiante)
                     .orElseThrow(() -> new Exception("Estudiante no encontrado"));
             Carrera carrera = carreraRepository.findById(idCarrera)
